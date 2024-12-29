@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from models import initialize_database
-# from routes import blueprints
+from routes import blueprints
 
 app = Flask(__name__)
 
@@ -8,8 +8,8 @@ app = Flask(__name__)
 initialize_database()
 
 # 各Blueprintをアプリケーションに登録
-# for blueprint in blueprints:
-#     app.register_blueprint(blueprint)
+for blueprint in blueprints:
+    app.register_blueprint(blueprint)
 
 # ホームページのルート
 @app.route('/')
