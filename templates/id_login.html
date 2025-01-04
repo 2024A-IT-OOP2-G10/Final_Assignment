@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/id_login.css" />
+    <title>ログイン</title>
+  </head>
+  <body>
+    <h1>ログイン</h1>
+    <form action="{{ url_for('home') }}" method="post">
+      <label for="user">ユーザーID:</label>
+      <input type="text" id="user" name="user" required />
+      <br />
+      <label for="pass">パスワード:</label>
+      <input type="text" id="pass" name="pass" required />
+      <br />
+      <input type="submit" value="ログイン" />
+    </form>
+    <br />
+  </body>
+  <!-- 初期画面はid.htmlのこと -->
+  <a href="/">初期画面に戻る</a>
+</html>

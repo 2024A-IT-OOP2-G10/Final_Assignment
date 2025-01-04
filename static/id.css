@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    justify-content: center;
+    padding: 300px 0;
+}
+
+input {
+    /* 文字の大きさ */
+    font-size: 50px;
+    /* 内側の上下の余白 */
+    padding: 40px;
+    /* 外側の右側の余白 */
+    margin-right: 200px;
+    /* 外側の左側の余白 */
+    margin-left: 200px;
+}

@@ -1,0 +1,2 @@
+# Blueprintをリストとしてまとめる
+blueprints = []

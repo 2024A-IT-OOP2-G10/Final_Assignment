@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    justify-content: center;
+    padding: 200px 0;
+
+}
+
+form {
+    position: absolute;
+    margin-top: 100px;
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+input {
+    width:200px;
+    height:25px;
+}
+
+a {
+    position: absolute;
+    left: 200px;
+    top: 400px;
+}
