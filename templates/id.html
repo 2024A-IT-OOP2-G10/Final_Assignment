@@ -6,20 +6,10 @@
     <title>ホーム</title>
   </head>
   <body>
-    <!-- <button type="button" class="id_new" onclick="loction.href='./id_new.html'">
-      ID登録
-    </button> -->
     <form action="{{ url_for('new') }}">
       <input type="submit" value="ID登録" />
     </form>
     <br />
-    <!-- <button
-      type="button"
-      class="id_login"
-      onclick="loction.href='./id_login.html'"
-    >
-      ログイン
-    </button> -->
     <form action="{{ url_for('login') }}">
       <input type="submit" value="ログイン" />
     </form>
