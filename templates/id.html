@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/id.css" />
+    <title>ホーム</title>
+  </head>
+  <body>
+    <form action="{{ url_for('new') }}">
+      <input type="submit" value="ID登録" />
+    </form>
+    <br />
+    <form action="{{ url_for('login') }}">
+      <input type="submit" value="ログイン" />
+    </form>
+  </body>
+</html>
