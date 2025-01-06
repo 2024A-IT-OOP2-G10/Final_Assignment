@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記事追加</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='practice.css') }}">
+</head>
+
+<body>
+    <!-- タイトル -->
+    <div class="title">
+        <h1>新規講義の追加</h1>
+    </div>
+
+    <!-- 講義選択 -->
+    <form method="post" action="/select_class">
+        <div class="class">
+            <div class="all_text">
+                <label>講義:</label>
+            </div>
+            {% if select_day and select_time %}
+            {% if filter_lectures %}
+            <select name="lecture" id="lecture" required>
+                {% for lecture in filter_lectures %}
+                <option value="{{ lecture }}">{{ lecture }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            {% endif %}
+            {% endif %}
+        </div>
+    </form>
+
+
+    <!-- 曜日選択 -->
+    <form method="POST" action="/reference">
+        <div class="day_time_fontsize">
+            <div class="all_text">
+                <label>曜日:</label>
+            </div>
+            <select name="day" required>
+                {% for day in days %}
+                <option value="{{ day }}">{{ day }}</option>
+                {% endfor %}
+            </select>
+            <br>
+        </div>
+
+        <!-- 時限選択 -->
+        <div class="day_time_fontsize">
+            <div class="all_text">
+                <label>時限:
+            </div>
+            <select name="time" required>
+                {% for time in times %}
+                <option value="{{ time }}">{{ time }}</option>
+                {% endfor %}
+            </select>
+            </label><br>
+        </div>
+        <!-- 参照ボタン -->
+        <div class="reference">
+            <button type="submit">参照</button>
+        </div>
+    </form>
+
+    <!-- 白枠 -->
+
+    <div class="reference_whitebox">
+        <p>条件に当てはある講義名</p>
+        {%if select_day and select_time %}
+        {% if filter_lectures %}
+        <ul>
+            {% for lecture in filter_lectures %}
+            <li>{{ lecture}}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>該当する講義はありません。</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- 縦線 -->
+    <!-- <div class="vertical-line"></div> -->
+
+    <!-- 追加ボタン -->
+    <form method="post" action="select_class">
+        <div class="add_Finalconfirmation">
+            <button type="submit">追加</button>
+        </div>
+
+        <!-- 最終確認ボタン -->
+        <div class="add_Finalconfirmation">
+            <button type="submit">最終確認</button>
+        </div>
+    </form>
+</body>
+
+</html>
