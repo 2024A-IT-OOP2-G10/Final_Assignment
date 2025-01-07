@@ -30,9 +30,9 @@ def login():
     # users = User.select()
     return render_template('id_login.html')
 
-# @app.route('/home', methods=['GET'])
-# def home():
-#     return render_template('home.html')
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('home.html')
 
 if __name__ == '__main__':
     app.run(port=8888, debug=True)
