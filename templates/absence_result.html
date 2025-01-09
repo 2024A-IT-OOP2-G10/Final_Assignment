@@ -2,10 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>欠席登録結果</title>
+    <title>欠席数登録画面</title>
 </head>
 <body>
-    <h1>欠席登録結果</h1>
+    <h1>欠席数登録画面</h1>
     <h2>選択した講義: {{ lecture }}</h2>
     <form method="POST" action="/absence/register">
         <input type="hidden" name="lecture" value="{{ lecture }}">
