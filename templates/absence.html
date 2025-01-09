@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>欠席登録</title>
+</head>
+<body>
+    <h1>欠席登録</h1>
+    <form method="POST" action="{{ url_for('absence.result') }}">
+        <label for="name">講義を選択:</label>
+        <select id="name" name="name" required>
+            {% for item in item %}
+            <option value="{{ item.name }}">{{ item.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="absence">欠席日数:</label>
+        <select id="absence" name="absence" required>
+            <option value="0">0日</option>
+            <option value="1">1日</option>
+            <option value="2">2日</option>
+            <option value="3">3日</option>
+            <option value="4">4日</option>
+            <option value="5">5日</option>
+        </select>
+        <br>
+        <button type="submit">登録</button>
+    </form>
+</body>
+</html>
