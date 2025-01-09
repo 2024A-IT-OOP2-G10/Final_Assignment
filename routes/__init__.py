@@ -1,4 +1,6 @@
-from .lecture import blueprint
+from .lecture import lecture_bp
+from .id import id_bp
+from .home import home_bp
 
-# 他のBlueprintを追加する場合、リストに追加
-blueprints = [blueprint]
+# Blueprintをリストとしてまとめる
+blueprints = [id_bp, home_bp, lecture_bp]

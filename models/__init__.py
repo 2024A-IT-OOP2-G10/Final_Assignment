@@ -3,13 +3,14 @@ from .subject import Subject
 from .my_subject import MySubject
 from .todo import Todo
 from .lecture import get_days, get_times, get_classes_by_day_and_time
-
+from .user import User
 
 #モデルのリストを定義
 MODELS = [
     Subject,
     MySubject,
-    Todo
+    Todo,
+    User
 ]
 
 def initialize_database():

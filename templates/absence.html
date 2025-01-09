@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>欠席登録</title>
+</head>
+<body>
+    <h1>欠席登録</h1>
+
+    <!-- 曜日選択フォーム -->
+    <form method="POST" action="{{ url_for('absence.absence') }}">
+        <label for="weekday">曜日を選択:</label>
+        <select id="weekday" name="weekday" required>
+            <option value="">--選択してください--</option>
+            <option value="Monday" {% if day == "Monday" %}selected{% endif %}>月曜日</option>
+            <option value="Tuesday" {% if day == "Tuesday" %}selected{% endif %}>火曜日</option>
+            <option value="Wednesday" {% if day == "Wednesday" %}selected{% endif %}>水曜日</option>
+            <option value="Thursday" {% if day == "Thursday" %}selected{% endif %}>木曜日</option>
+            <option value="Friday" {% if day == "Friday" %}selected{% endif %}>金曜日</option>
+        </select>
+        <br>
+    
+    </form>
+
+    {% if day %}
+    <h2>{{ day }}に登録されている講義</h2>
+
+    <!-- 講義選択フォーム -->
+    <form method="POST" action="{{ url_for('absence.result') }}">
+        <label for="name">講義を選択:</label>
+        <select id="name" name="name" required>
+            <option value="">--選択してください--</option>
+            {% for subject in subjects %}
+            <option value="{{ subject.name }}">{{ subject.name }}</option>
+            {% endfor %}
+            {% if not subjects %}
+            <option value="">登録されている講義はありません</option>
+            {% endif %}
+        </select>
+        <br>
+        <button type="submit">決定</button>
+    </form>
+    {% endif %}
+</body>
+</html>
