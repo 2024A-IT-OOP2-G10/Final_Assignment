@@ -3,6 +3,7 @@
 ## 初期画面
 
 - ログインか新規登録かを選択させる。ここは画面の遷移をするのみ。
+- <img width="1458" alt="id" src="https://github.com/user-attachments/assets/a98ddec3-6057-4c50-b473-7a98bfe94877" />
 
 ## 新規登録画面
 
