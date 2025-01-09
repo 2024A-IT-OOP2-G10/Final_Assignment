@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models import get_days, get_times, get_classes_by_day_and_time
 
-lecture_bp = Blueprint('main', __name__)
+lecture_bp = Blueprint('main', __name__,url_prefix='/lecture')
 select_classes = []
 
-@lecture_bp.route('/', methods=['GET', 'POST'])
+@lecture_bp.route('/lecture', methods=['GET', 'POST'])
 def index():
     global select_classes
     days = get_days()
@@ -27,7 +27,7 @@ def index():
     )
 
 
-@blueprint.route('/select_class', methods=['POST'])
+@lecture_bp.route('/select_class', methods=['POST'])
 def select_class():
     global select_classes
     select_class = request.form.get('lecture')
