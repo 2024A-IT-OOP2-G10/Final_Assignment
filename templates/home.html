@@ -8,12 +8,17 @@
   <body>
     <div class="home_button">
       <h1>ホーム画面</h1>
-      <button type="button" onclick="location.href='リンク先のURL'">
-        欠席登録
-      </button>
+      <form action="{{ url_for('id.success') }}">
+        <input type="submit" value="欠席登録" />
+      </form>
       <br />
-      <button type="button" onclick="location.href='リンク先のURL'">ToDo</button>
+      <form action="{{ url_for('todo.todo_form') }}">
+        <input type="submit" value="ToDo" />
+      </form>
       <br />
+      <!-- <form action="{{ url_for('todo.htmlを呼び出す') }}">
+        <input type="submit" value="講義追加" />
+      </form> -->
       <button type="button" onclick="location.href='リンク先のURL'">
         講義追加
       </button>
