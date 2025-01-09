@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>記事追加</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='practice.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lecture.css') }}">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- 講義選択 -->
-    <form method="post" action="/select_class">
+    <form method="post" action="{{ url_for('subject.add') }}">
         <div class="class">
             <div class="all_text">
                 <label>講義:</label>
