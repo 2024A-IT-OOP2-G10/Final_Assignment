@@ -2,13 +2,14 @@ from .db import db
 from .subject import Subject
 from .my_subject import MySubject
 from .todo import Todo
-
+from .user import User
 
 #モデルのリストを定義
 MODELS = [
     Subject,
     MySubject,
-    Todo
+    Todo,
+    User
 ]
 
 def initialize_database():
