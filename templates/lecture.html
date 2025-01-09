@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事追加</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='practice.css') }}">
+    <title>授業選択</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lecture.css') }}">
 </head>
 
 <body>
@@ -15,88 +15,100 @@
     </div>
 
     <!-- 講義選択 -->
-    <form method="post" action="/select_class">
+    <form method="POST" action="{{ url_for('main.select_class') }}">
         <div class="class">
             <div class="all_text">
                 <label>講義:</label>
             </div>
-            {% if select_day and select_time %}
-            {% if filter_lectures %}
+            {% if selected_day and selected_time %}
+            {% if classes %}
             <select name="lecture" id="lecture" required>
-                {% for lecture in filter_lectures %}
-                <option value="{{ lecture }}">{{ lecture }}</option>
+                {% for lecture in classes %}
+                <option value="{{ lecture.id }}">{{ lecture.class }}</option>
                 {% endfor %}
             </select>
             <br>
             {% endif %}
             {% endif %}
         </div>
+        <!-- 追加ボタン -->
+        <div class="add">
+            <button type="submit">追加</button>
+        </div>
     </form>
 
-
     <!-- 曜日選択 -->
-    <form method="POST" action="/reference">
+    <form method="POST">
         <div class="day_time_fontsize">
             <div class="all_text">
-                <label>曜日:</label>
+                <label for="day">曜日:</label>
             </div>
-            <select name="day" required>
+            <select name="day" id="day">
+                <option value="">選択してください</option>
                 {% for day in days %}
-                <option value="{{ day }}">{{ day }}</option>
+                <option value="{{ day }}" {% if selected_day == day %}selected{% endif %}>
+                    {{ day }}
+                </option>
                 {% endfor %}
             </select>
-            <br>
         </div>
 
         <!-- 時限選択 -->
         <div class="day_time_fontsize">
             <div class="all_text">
-                <label>時限:
+                <label for="time">時限:</label>
             </div>
-            <select name="time" required>
+            <select name="time" id="time">
+                <option value="">選択してください</option>
                 {% for time in times %}
-                <option value="{{ time }}">{{ time }}</option>
+                <option value="{{ time }}" {% if selected_time == time %}selected{% endif %}>
+                    {{ time }}時限
+                </option>
                 {% endfor %}
             </select>
-            </label><br>
         </div>
+
         <!-- 参照ボタン -->
         <div class="reference">
             <button type="submit">参照</button>
         </div>
     </form>
 
-    <!-- 白枠 -->
-
+    <!-- 条件に当てはまる講義のリスト -->
     <div class="reference_whitebox">
-        <p>条件に当てはある講義名</p>
-        {%if select_day and select_time %}
-        {% if filter_lectures %}
+        <p>条件に当てはまる講義名</p>
+        {% if classes %}
         <ul>
-            {% for lecture in filter_lectures %}
-            <li>{{ lecture}}</li>
+            {% for lecture in classes %}
+            <li>{{ lecture.class }}</li>
             {% endfor %}
         </ul>
         {% else %}
         <p>該当する講義はありません。</p>
         {% endif %}
     </div>
-    {% endif %}
 
-    <!-- 縦線 -->
-    <!-- <div class="vertical-line"></div> -->
+    <!-- 追加済みの講義 -->
+    <div class="added_classes">
+        <h3>追加済み講義:</h3>
+        {% if select_classes %}
+        <ul>
+            {% for class in select_classes %}
+            <li>{{ class }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>まだ講義が追加されていません。</p>
+        {% endif %}
+    </div>
 
-    <!-- 追加ボタン -->
-    <form method="post" action="select_class">
-        <div class="add_Finalconfirmation">
-            <button type="submit">追加</button>
-        </div>
-
-        <!-- 最終確認ボタン -->
-        <div class="add_Finalconfirmation">
+    <!-- 最終確認ボタン -->
+    <form method="post" action="{{ url_for('main.select_class') }}">
+        <div class="Finalconfirmation">
             <button type="submit">最終確認</button>
         </div>
     </form>
+
 </body>
 
 </html>
