@@ -6,7 +6,7 @@ class Subject(Model):
     ##講義名, 欠席回数, 曜日, 時間 
     name = CharField()
     absence = IntegerField()
-    dayofweek = IntegerField() ##曜日は数値で管理してみる
+    dayofweek = CharField() ##曜日は数値で管理してみる
     time = IntegerField()
 
     class Meta:
