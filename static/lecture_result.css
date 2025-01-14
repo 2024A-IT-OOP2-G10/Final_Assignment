@@ -1,0 +1,24 @@
+.place {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) 
+}
+
+.lecture_list {
+    width: 500px;
+    height: 200px;
+    overflow: scroll;
+    border: black 2px solid;
+}
+
+input {
+    position: absolute; /*自由に配置する指定*/
+    bottom: 0; /*下寄せの指定*/
+    margin-left: 90%;
+    margin-bottom: 10%;
+    font-size: 20px;
+    padding: 20px;
+}
