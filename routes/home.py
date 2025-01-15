@@ -1,6 +1,5 @@
 # Blueprintの作成
-from flask import Blueprint, render_template, request, url_for, flash, redirect, session
-from models import User
+from flask import Blueprint, render_template
 
 home_bp = Blueprint('home', __name__, url_prefix='/home')
 

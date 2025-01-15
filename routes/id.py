@@ -1,6 +1,6 @@
 # Blueprintの作成
 from flask import Blueprint, render_template, request, url_for, flash, redirect, session
-from models import User
+
 
 id_bp = Blueprint('id', __name__, url_prefix='/id')
 
@@ -13,7 +13,7 @@ def add():
     if request.method == 'POST':
         user_id = request.form['user']
         password = request.form['pass']
-        User.create(user_id=user_id, password=password)
+        # User.create(user_id=user_id, password=password)
 
         # Flashメッセージ
         # flash('登録が完了しました！', 'success')
@@ -33,7 +33,10 @@ def login():
         user_id = request.form['user']
         password = request.form['pass']
         
-        user = User.get_or_none(User.user_id == user_id)  # Userモデルの検索例
+        # user = User.get_or_none(User.user_id == user_id)  # Userモデルの検索例
+        
+        user = "user"  # 仮のデータ
+        
         if user is None:
             print("ユーザーが見つかりません")
             # ユーザーが見つからない場合の処理
