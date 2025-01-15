@@ -1,4 +1,3 @@
-from peewee import SqliteDatabase
+from flask_sqlalchemy import SQLAlchemy
 
-# データベース接続の定義
-db = SqliteDatabase('my_database.db')
+db = SQLAlchemy()
