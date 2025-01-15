@@ -1,24 +1,57 @@
-.place {
+body {
     margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) 
+    font-family: sans-serif;
+}
+
+/* 全体を中央に配置 */
+.place {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .lecture_list {
-    width: 500px;
-    height: 200px;
-    overflow: scroll;
-    border: black 2px solid;
+    width: 600px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
-input {
-    position: absolute; /*自由に配置する指定*/
-    bottom: 0; /*下寄せの指定*/
-    margin-left: 90%;
-    margin-bottom: 10%;
+/* タイトルの中央揃え */
+.font_size {
+    text-align: center;
     font-size: 20px;
-    padding: 20px;
+    margin-top: 20px;
+}
+
+/* 削除用セレクトボックス */
+.delete_select {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.delete_select select {
+    width: 290px;
+    height: 100px;
+    font-size: 19px;
+    padding: 10px;
+}
+
+/* ボタン配置 */
+.add_button, .delete_button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.add_button button, .delete_button button {
+    width: 140px;
+    height: 60px;
+    font-size: 18px;
+    margin: 0 10px;
 }
