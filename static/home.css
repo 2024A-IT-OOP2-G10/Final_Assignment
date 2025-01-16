@@ -1,7 +1,10 @@
 .home_button{
     position: absolute;
     height: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
     background-color: darkgrey;
+
 }
 
 button{

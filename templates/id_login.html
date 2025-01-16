@@ -7,15 +7,20 @@
   </head>
   <body>
     <h1>ログイン</h1>
-    <form action="{{ url_for('id.login') }}" method="post">
+    {% if ans %}
+      <div class="message {% if 'success' in ans %}success{% else %}error{% endif %}">
+        {{ ans.success or ans.error }}
+      </div>
+    {% endif %}
+    <form action="{{ url_for('user.login') }}" method="get">
       <label for="user">ユーザーID:</label>
       <input type="text" id="user" name="user" required />
       <br />
       <label for="pass">パスワード:</label>
-      <input type="text" id="pass" name="pass" required />
+      <input type="password" id="pass" name="password" required />
       <br />
       <input type="submit" value="ログイン" />
-    </form>
+  </form>
     <br />
   </body>
   <!-- 初期画面はid.htmlのこと -->
