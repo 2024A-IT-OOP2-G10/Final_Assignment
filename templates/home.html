@@ -8,18 +8,13 @@
   <body>
     <div class="home_button">
       <h1>ホーム画面</h1>
-      <form action="{{ url_for('id.success') }}">
-        <input type="submit" value="欠席登録" />
-      </form>
+      <button type="button" onclick="location.href='/absence'">
+        欠席登録
+      </button>
       <br />
-      <form action="{{ url_for('todo.todo_form') }}">
-        <input type="submit" value="ToDo" />
-      </form>
+      <button type="button" onclick="location.href='リンク先のURL'">ToDo</button>
       <br />
-      <!-- <form action="{{ url_for('todo.htmlを呼び出す') }}">
-        <input type="submit" value="講義追加" />
-      </form> -->
-      <button type="button" onclick="location.href='リンク先のURL'">
+      <button type="button" onclick="location.href=''">
         講義追加
       </button>
     </div>
@@ -27,17 +22,16 @@
       <h2>欠席情報</h2>
       <div class="absence_list">
         <!-- ここのリストはテスト用 -->
-        <li>講義名：欠席４回</li>
+        <!-- <li>講義名：欠席４回</li>
         <li>講義名：欠席４回</li>
         <li>講義名：欠席４回</li>
         <li>講義名：欠席３回</li>
-        <li>講義名：欠席３回</li>
-        <li>講義名：欠席３回</li>
-        <li>講義名：欠席２回</li>
-        <li>講義名：欠席２回</li>
-        <li>講義名：欠席１回</li>
-        <li>講義名：欠席０回</li>
-        <li>講義名：欠席０回</li>
+        <li>講義名：欠席３回</li> -->
+        {% for absence in absences %}
+            <li>講義名：{{ absence.lecture_title }} - 欠席{{ absence.absence_count }}回</li>
+        {% else %}
+            <li>現在、欠席情報はありません。</li>
+        {% endfor %}
       </div>
     </div>
     <br />
