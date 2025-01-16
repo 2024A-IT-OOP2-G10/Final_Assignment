@@ -30,8 +30,8 @@
         <label for="name">講義を選択:</label>
         <select id="name" name="name" required>
             <option value="">--選択してください--</option>
-            {% for subject in subjects %}
-            <option value="{{ subject.name }}">{{ subject.name }}</option>
+            {% for absence in absences %}
+            <option value="{{ absence.lecture_title }}">{{ absence.lecture_title }}</option>
             {% endfor %}
             {% if not subjects %}
             <option value="">登録されている講義はありません</option>
