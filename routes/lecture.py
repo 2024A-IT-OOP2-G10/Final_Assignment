@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 
 
-lecture_bp = Blueprint('main', __name__)
+lecture_bp = Blueprint('lectures', __name__, url_prefix='/lectures')
 select_classes = []
 
 # 仮データベースとして活用（この形にする）
@@ -13,8 +13,6 @@ all_lectures_db = [
     {"id": 4, "class": "理科", "day": "木曜日", "time": 1},
     {"id": 5, "class": "英語", "day": "金曜日", "time": 4}
 ]
-
-@lecture_bp.route('/', methods=['GET', 'POST'])
 
 # 曜日を返す
 def get_days():
@@ -28,26 +26,24 @@ def get_times():
 def get_classes_by_day_and_time(day, time):
     return [lecture for lecture in all_lectures_db if lecture["day"] == day and lecture["time"] == time]
 
+
+@lecture_bp.route('/', methods=['GET', 'POST'])
+
     
 def index():
-    global select_classes
-    days = get_days()
-    times = get_times()
-    selected_day = request.form.get('day')
-    selected_time = request.form.get('time')
     classes = []
-
-    if selected_day and selected_time:
-        classes = get_classes_by_day_and_time(selected_day, int(selected_time))
+    
+    if request.method == 'GET':
+        day = request.form.get('day')
+        time = request.form.get('time')
+        
+        if day and time:
+            # 特定の曜日・時限に対応する講義を取得
+            classes = get_classes_by_day_and_time(day, time)
 
     return render_template(
         'lecture.html',
-        days=days,
-        times=times,
-        selected_day=selected_day,
-        selected_time=selected_time,
         classes=classes,
-        select_classes=select_classes
     )
 
 
