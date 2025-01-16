@@ -39,13 +39,14 @@
     </form>
 
     <!-- 曜日選択 -->
-    <form method="POST">
+    <form method="get" action="/lectures">
         <div class="day_time_fontsize">
             <div class="all_text">
                 <label for="day">曜日:</label>
             </div>
             <select name="day" id="day">
                 <option value="">選択してください</option>
+                {% days = [1,2,3,4,5,6] %}
                 {% for day in days %}
                 <option value="{{ day }}" {% if selected_day == day %}selected{% endif %}>
                     {{ day }}
@@ -61,6 +62,7 @@
             </div>
             <select name="time" id="time">
                 <option value="">選択してください</option>
+                {% time = [月,火,水,木,金] %}
                 {% for time in times %}
                 <option value="{{ time }}" {% if selected_time == time %}selected{% endif %}>
                     {{ time }}時限
