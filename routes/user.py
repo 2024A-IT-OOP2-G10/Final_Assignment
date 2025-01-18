@@ -45,7 +45,7 @@ def login():
         elif user['password'] == password:  # パスワード一致確認
             # ans = {"success": "ログインに成功しました"}
             #各ユーザごとのhome.indexがあるのか？
-            session['username'] = request.args.get('user')
+            session['user_id'] = request.args.get('id')
             return redirect(url_for('home.index'))# ホームページへリダイレクト
     
     # POSTリクエストの場合、ログインフォームを表示

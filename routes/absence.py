@@ -34,16 +34,27 @@ def result():
 
 @absence_bp.route('', methods=['GET','POST'])
 def absences():
+    user_id = session.get('user_id')
+    day = ""
+    # absences = db.session.query(
+    #         UserLectureRelation.user_id,
+    #         Lecture.title,
+    #         Lecture.week,
+    #         UserLectureRelation.absence_count
+    #     ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
+    #     .filter(UserLectureRelation.user_id == user_id) \
+    #     .all()
     if request.method == 'GET':
-        username = session.get('username')
-        get_absences(username)
         
-        return render_template('absence.html', absences=absences)
-    
+        mylecture = [{"user_id": 1, "title": "情報システム概論", "week": "月曜日", "absence_count": 2},
+        {"user_id": 1, "title": "オブジェクト演習", "week": "火曜日", "absence_count": 1}]
+        day = request.args.get('weekday')
+        subjects = [lecture for lecture in mylecture if lecture['week'] == day]
+        return render_template('absence.html', subjects=subjects, day=day)
     elif request.method == 'POST':
-            user_id = request.form['user_id']
-            lecture_title = request.form['lecture_title']
-            absence_count = request.form['absence_count']
+            
+
+    # 曜日が選択されていれば、その曜日に関連する講義をフィルタリング
             
             #queryパラメータで取得する場合
             #user_id = request.args.get('user_id')
@@ -55,16 +66,14 @@ def absences():
             # new_absence = UserLectureRelation(user_id=user_id, lecture_title=lecture_title, absenceCount=absence_count)
             # db.session.add(new_absence)
             # db.session.commit()
-            ans = {"success": "DBへの登録を完了しました"}
-            return render_template('absence_result.html', ans=ans)
+            
+            return render_template('absence.html', absences=absences, day=day, subject=subjects)
         
         
         
-def get_absences(username):
+def get_absences(user_id):
     # absences = MySubject.select()
-    
-    # user_id = User.query.filter_by(username=username).first().id
-    # # UserLectures = UserLectureRelation.query.filter_by(id=user_id).all()
+    # UserLectures = UserLectureRelation.query.filter_by(id=user_id).all()
     # UserLectures = [ul for ul in all_user_lectures if ul['user_id'] == user_id]
     # absences = []
     # for UserLecture in UserLectures:
