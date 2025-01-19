@@ -7,16 +7,16 @@
     <title>ToDo Result</title>
 </head>
 <body>
-    <h1>Confirm Your Task</h1>
+    <h1>最終確認</h1>
     <form method="POST" action="{{ url_for('todo.todo_result') }}">
-        <p>Lecture Name: {{ name }}</p>
-        <p>Deadline: {{ date }}</p>
-        <p>Task Description: {{ todo }}</p>
+        <p>講義名: {{ name }}</p>
+        <p>日付: {{ date }}</p>
+        <p>メモ: {{ todo }}</p>
         <input type="hidden" name="name" value="{{ name }}">
         <input type="hidden" name="date" value="{{ date }}">
         <input type="hidden" name="todo" value="{{ todo }}">
-        <button type="submit">Save</button>
-        <a href="{{ url_for('todo.todo_form') }}">Back</a>
+        <button type="submit">保存</button>
+        <button type="submit">戻る</button>
     </form>
 </body>
 </html>
