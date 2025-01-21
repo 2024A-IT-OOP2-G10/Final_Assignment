@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from routes import blueprints
+from models.db import db
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -8,6 +9,9 @@ app.secret_key = 'your_secret_key'
 app.secret_key = 'your-unique-secret-key'  # 安全でランダムなキーを設定
 
 # データベースの初期化
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sample_flask.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
 
 # 各Blueprintをアプリケーションに登録
 for blueprint in blueprints:
