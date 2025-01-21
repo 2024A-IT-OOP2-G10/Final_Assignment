@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="stylesheet" href="../static/lecture_result.css" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>最終確認</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../static/lecture_result.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>最終確認</title>
-</head>
-
-<body>
-  <div class="font_size">
-    <h1>確認画面</h1>
-  </div>
-
-  <!-- 講義リスト表示 -->
-  <div class="place">
-    <div class="lecture_list" id="lectureList">
-      <ul>
-        <li>id:1 数値計算</li>
-        <li>id:2 オブジェクト思考</li>
-        <li>id:3 オブジェクト思考</li>
-        <li>id:4 オブジェクト思考</li>
-      </ul>
+  <body>
+    <div class="font_size">
+      <h1>確認画面</h1>
     </div>
-  </div>
 
-  <!-- セレクトボックス -->
-  <div class="delete_select">
-    <select name="lecture" id="lectureSelect">
-      <option value="1">数値計算</option>
-      <option value="2">オブジェクト思考</option>
-      <option value="3">オブジェクト思考</option>
-      <option value="4">オブジェクト思考</option>
-    </select>
-  </div>
-
-  <!-- 削除ボタン -->
-  <div class="delete_button">
-    <button id="deleteButton" type="button">削除</button>
-  </div>
-
-  <!-- 保存ボタン -->
-  <form action="home.html">
-    <div class="add_button">
-      <button type="submit">保存</button>
+    <!-- 講義リスト表示 -->
+    <div class="place">
+      <div class="lecture_list" id="lectureList">
+        <ul>
+          <li>id:1 数値計算</li>
+          <li>id:2 オブジェクト思考</li>
+          <li>id:3 オブジェクト思考</li>
+          <li>id:4 オブジェクト思考</li>
+        </ul>
+      </div>
     </div>
-  </form>
 
-  <script src="../static/script.js"></script>
-</body>
+    <!-- セレクトボックス -->
+    <div class="delete_select">
+      <select name="lecture" id="lectureSelect">
+        <option value="1">数値計算</option>
+        <option value="2">オブジェクト思考</option>
+        <option value="3">オブジェクト思考</option>
+        <option value="4">オブジェクト思考</option>
+      </select>
+    </div>
 
+    <!-- 削除ボタン -->
+    <div class="delete_button">
+      <button id="deleteButton" type="button">削除</button>
+    </div>
+
+    <!-- 保存ボタン -->
+    <form action="home.html">
+      <div class="add_button">
+        <button type="submit">保存</button>
+      </div>
+    </form>
+
+    <!-- <script src="../static/script.js"></script> -->
+  </body>
 </html>

@@ -1,9 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-
-
+from flask import Blueprint, flash, render_template, request, redirect, session, url_for
 
 lecture_bp = Blueprint('lectures', __name__, url_prefix='/lectures')
-select_classes = []
 
 # 仮データベースとして活用（この形にする）
 all_lectures_db = [
@@ -14,45 +11,77 @@ all_lectures_db = [
     {"id": 5, "class": "英語", "day": "金曜日", "time": 4}
 ]
 
-# 曜日を返す
-def get_days():
-    return list(set([lecture["day"] for lecture in all_lectures_db]))
-
-# 時限を返す
-def get_times():
-    return list(set([lecture["time"] for lecture in all_lectures_db]))
-
 # 特定の曜日・時限に対応する講義を返す
 def get_classes_by_day_and_time(day, time):
     return [lecture for lecture in all_lectures_db if lecture["day"] == day and lecture["time"] == time]
 
-
 @lecture_bp.route('/', methods=['GET', 'POST'])
-
-    
 def index():
-    classes = []
+    day = request.args.get('day')
+    time = request.args.get('time')
     
-    if request.method == 'GET':
-        day = request.form.get('day')
-        time = request.form.get('time')
-        
-        if day and time:
-            # 特定の曜日・時限に対応する講義を取得
+    classes = []
+    if day and time:
+        try:
+            time = int(time)  # 時限は整数に変換
             classes = get_classes_by_day_and_time(day, time)
+        except ValueError:
+            pass  # 時限が整数でない場合は無視
 
+    # セッションに保存された選択された講義を取得
+    local_subjects = session.get('local_subjects', [])
+    
     return render_template(
         'lecture.html',
+        selected_day=day,
+        selected_time=time,
         classes=classes,
+        local_subjects=local_subjects,  # sessionから取得したlocal_subjectsを渡す
     )
 
+@lecture_bp.route('/add', methods=['POST'])
+def add():
+    
+    print("add")
+    try:
+        subject_id = int(request.form.get('lecture'))  # lecture_idを取得
+        
+        print(subject_id)
+    
+        
+    # IDが整数でない場合の例外処理
+    except (TypeError, ValueError):
+        flash("Invalid subject ID", "error")
+        return redirect(url_for('lectures.index'))
+    
+    # 仮データidに対応する講義を取得
+    subject = next((lecture for lecture in all_lectures_db if lecture["id"] == subject_id), None)
+    
+    if subject:
+        # セッションに講義を追加
+        local_subjects = session.get('local_subjects', [])
+        if subject not in local_subjects:
+            local_subjects.append(subject)
+            session['local_subjects'] = local_subjects
+            
+        print(local_subjects)
+    else:
+        flash("Subject not found", "error")
+        
+    return redirect(url_for('lectures.index'))
 
 @lecture_bp.route('/select_class', methods=['POST'])
 def select_class():
-    global select_classes
-    select_class = request.form.get('lecture')
+    lecture_id = request.form.get('lecture')
+    
+    if lecture_id:
+        # ID を元に該当する講義を取得
+        lecture = next((lec for lec in all_lectures_db if str(lec["id"]) == lecture_id), None)
+        if lecture:
+            # セッションに選ばれた講義を追加
+            local_subjects = session.get('local_subjects', [])
+            if lecture not in local_subjects:
+                local_subjects.append(lecture)
+                session['local_subjects'] = local_subjects
 
-    if select_class and select_class not in select_classes:
-        select_classes.append(select_class)
-
-    return redirect(url_for('main.index'))  # フォームをリダイレクトしてリスト更新
+    return redirect(url_for('lecture_result.index'))
