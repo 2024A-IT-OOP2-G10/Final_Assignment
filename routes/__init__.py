@@ -1,5 +1,6 @@
 from .lecture import lecture_bp
-from .id import id_bp
+from .user import user_bp
+from .absence import absence_bp
 from .home import home_bp
 from .lecture_result import lectureResult_bp
 
