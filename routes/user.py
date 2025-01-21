@@ -12,7 +12,7 @@ UserData = [
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
 
-@user_bp.route('', methods=['GET'])
+@user_bp.route('/', methods=['GET'])
 def get_user():
     if request.method == 'GET':
         user_id = request.args.get('user_id') #クエリパラメータを取得
