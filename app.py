@@ -4,6 +4,9 @@ from routes import blueprints
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
+# セッション管理用に secret_key を設定
+app.secret_key = 'your-unique-secret-key'  # 安全でランダムなキーを設定
+
 # データベースの初期化
 
 # 各Blueprintをアプリケーションに登録
@@ -28,6 +31,14 @@ def new():
 #     # # データ取得
 #     # users = User.select()
 #     return render_template('id_login.html')
+
+with app.app_context():
+    print('open with context')
+    db.create_all()  # テーブルを作成
+    
+    
+# セッション管理用に secret_key を設定
+app.secret_key = 'your-unique-secret-key'  # 安全でランダムなキーを設定
 
 @app.route('/home')
 def home():
