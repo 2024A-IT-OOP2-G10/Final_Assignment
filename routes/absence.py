@@ -20,7 +20,6 @@ all_lectures = [
 
 @absence_bp.route('/result', methods=['GET', 'POST'])
 def result():
-    
     # POSTで送られてきたデータを変更
     if request.method == 'POST':
         name = request.form['name']

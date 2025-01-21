@@ -20,7 +20,7 @@ def todo_result():
         name = request.form.get('name')
         todo = request.form.get('todo')
         date = request.form.get('date')
-
+        
         new_todo = Todo(name=name, todo=todo, time=date)
         new_todo.save()
 
