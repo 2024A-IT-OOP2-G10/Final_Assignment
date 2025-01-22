@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from models import db, UserLectureRelation, Lecture, User
+from models import data
 
 # Blueprintの作成
 absence_bp = Blueprint('absence', __name__, url_prefix='/absence')
@@ -23,10 +24,9 @@ def result():
     
     user_id = session.get('user_id')
     lecture_id = request.args.get('name')
-    lecture_id = int(lecture_id)
     print(lecture_id)
     
-    selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == lecture_id), None)
+    selected_lecture = next((lecture for lecture in data.all_lectures_db if lecture['id'] == lecture_id), None)
     print(selected_lecture)
 
     
@@ -35,6 +35,7 @@ def result():
     
     if request.method == 'POST':
         absence_count = request.form.get('absence')
+        
         #user_id, lecture_id, absence_count情報からDBを変更する
         # userlecturerelation = UserLectureRelation.query.filter_by(user_id=user_id, lecture_id=lecture_id).first()
         # userlecturerelation.absence_count = absence_count
@@ -44,7 +45,7 @@ def result():
         return render_template('absence.html')
     
     
-    return render_template('absence_result.html', lecture=selected_lecture['title'])
+    return render_template('absence_result.html', lecture=selected_lecture)
 
     # if request.method == 'POST':
     #     name = request.form['name']
@@ -56,12 +57,14 @@ def result():
 
 @absence_bp.route('/', methods=['GET'])
 def absences():
-    user_id = session.get('user_id')
-    lectures = db.session.query(
-            Lecture.id, Lecture.title, Lecture.week
-        ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
-        .filter(UserLectureRelation.user_id == user_id) \
-        .all()
+    
+    #SQLAlchemy用
+    # user_id = session.get('user_id')
+    # subjects = db.session.query(
+    #         Lecture.id, Lecture.title, Lecture.week
+    #     ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
+    #     .filter(UserLectureRelation.user_id == user_id) \
+    #     .all()
     
     if request.method == 'GET':
         mylecture = [{ "id":1,"title": "情報システム概論", "week": "月曜日", },
@@ -73,13 +76,15 @@ def absences():
         
         
 def get_absences(user_id):
-    absences = db.session.query(
-            UserLectureRelation.user_id,
-            Lecture.title,
-            UserLectureRelation.absence_count
-        ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
-        .filter(UserLectureRelation.user_id == user_id) \
-        .all()
+    
+    #SQLAlchemy用
+    # absences = db.session.query(
+    #         UserLectureRelation.user_id,
+    #         Lecture.title,
+    #         UserLectureRelation.absence_count
+    #     ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
+    #     .filter(UserLectureRelation.user_id == user_id) \
+    #     .all()
             
     
     # 仮データ

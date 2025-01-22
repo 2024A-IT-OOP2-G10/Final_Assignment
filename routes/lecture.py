@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from models import data
 
 
 
@@ -18,15 +19,15 @@ all_lectures_db = [
 
 # 曜日を返す
 def get_days():
-    return list(set([lecture["day"] for lecture in all_lectures_db]))
+    return list(set([lecture["day"] for lecture in data.all_lectures_db]))
 
 # 時限を返す
 def get_times():
-    return list(set([lecture["time"] for lecture in all_lectures_db]))
+    return list(set([lecture["time"] for lecture in data.all_lectures_db]))
 
 # 特定の曜日・時限に対応する講義を返す
 def get_classes_by_day_and_time(day, time):
-    return [lecture for lecture in all_lectures_db if lecture["day"] == day and lecture["time"] == time]
+    return [lecture for lecture in data.all_lectures_db if lecture["day"] == day and lecture["time"] == time]
 
     
 def index():
