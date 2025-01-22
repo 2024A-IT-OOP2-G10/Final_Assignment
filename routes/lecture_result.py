@@ -31,6 +31,18 @@ def delete():
             session['local_subjects'] = updated_subjects  # セッションを更新
     
     return redirect(url_for('lecture_result.index'))
+  
+     else:
+    
+        # セッションから保存された講義情報を取得
+        local_subjects = session.get('local_subjects', [])
+    
+        # 本来はlocal_subjectsをDBに保存する処理が必要
+    
+        # セッションに講義を初期化
+        session['local_subjects'] = []
+    
+        return redirect(url_for('home.index'))
 
 @lectureResult_bp.route('/save', methods=['POST'])
 def save():

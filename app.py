@@ -1,12 +1,16 @@
 from flask import Flask, render_template
-from routes import blueprints
+import flask_login
+from flask_login import UserMixin
 from models.db import db
+from models.user import User
+from routes import blueprints
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
 
 # セッション管理用に secret_key を設定
-app.secret_key = 'your-unique-secret-key'  # 安全でランダムなキーを設定
+app.secret_key = 'your-unique-secret-key' 
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
 
 # データベースの初期化
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sample_flask.db'
@@ -21,6 +25,13 @@ for blueprint in blueprints:
 @app.route('/')
 def index():
     return render_template('id.html')
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    
+    return User(user_id)
+    
 
 @app.route('/user', methods=['GET', 'POST'])
 def new():
@@ -39,10 +50,6 @@ def new():
 with app.app_context():
     print('open with context')
     db.create_all()  # テーブルを作成
-    
-    
-# セッション管理用に secret_key を設定
-app.secret_key = 'your-unique-secret-key'  # 安全でランダムなキーを設定
 
 @app.route('/home')
 def home():
