@@ -22,7 +22,7 @@ def index():
 
     # セッションに保存された選択された講義を取得
     local_subject_ids = session.get('local_subjects', [])
-    local_subjects = [Lecture.query.get(subject_id).to_dict() for subject_id in local_subject_ids]
+    local_subjects = [Lecture.query.filter_by(id=subject_id).first().to_dict() for subject_id in local_subject_ids]
 
     return render_template(
         'lecture.html',
