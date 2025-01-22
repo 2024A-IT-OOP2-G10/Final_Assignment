@@ -33,7 +33,7 @@ def index():
 @login_manager.user_loader
 def load_user(user_id):
     
-    return User(user_id)
+     return User.query.get(int(user_id))
     
 
 @app.route('/user', methods=['GET', 'POST'])

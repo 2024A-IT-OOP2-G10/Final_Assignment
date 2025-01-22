@@ -1,11 +1,14 @@
 from flask import Blueprint, flash, render_template, request, redirect, session, url_for
+from flask_login import current_user, login_required # type: ignore
 
 from models.db import db
 from models.lecture import Lecture
+from models.userLectureRelation import UserLectureRelation
 
 lectureResult_bp = Blueprint('lecture_result', __name__, url_prefix='/lectures/result')
 
 @lectureResult_bp.route('/')
+@login_required
 def index():
     # セッションから保存された講義情報を取得
     local_subject_ids = session.get('local_subjects', [])
@@ -24,7 +27,9 @@ def index():
         )
 
     return render_template('lecture_result.html', local_subjects=sorted_subjects)
+
 @lectureResult_bp.route('/delete', methods=['POST'])
+@login_required
 def delete():
     lecture_id = request.form.get('lecture')  # 削除対象の講義IDを取得
     
@@ -44,17 +49,23 @@ def delete():
 
     
 @lectureResult_bp.route('/save', methods=['POST'])
+@login_required
 def save():
     # 講義情報を保存する処理（ここではセッション内容をそのまま保持）
     local_subject_ids = session.get('local_subjects', [])
     
     for subject_id in local_subject_ids:
         # DBからLectureオブジェクトを取得
-        lecture = Lecture.query.get(subject_id)
+        lecture = db.session.query(Lecture).get(subject_id)
         
         if lecture:
-            # DBに保存する処理（更新や挿入処理）
-            db.session.add(lecture)
+
+            new_user_lecture = UserLectureRelation(
+                user_id=current_user.get_id(),
+                lecture_id=lecture.id,
+                absence_count=0
+            )
+            db.session.add(new_user_lecture)
             db.session.commit()
     
     return redirect(url_for('home.index'))

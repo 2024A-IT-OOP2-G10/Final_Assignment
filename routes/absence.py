@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask_login import current_user, login_required
 from models import  UserLectureRelation, Lecture, User
 from models import data
 from models.db import db
@@ -26,9 +27,10 @@ absence_bp = Blueprint('absence', __name__, url_prefix='/absence')
 
 
 @absence_bp.route('/result', methods=['GET', 'POST'])
+@login_required
 def result():
     
-    user_id = session.get('user_id')
+    user_id = current_user.get_id()
     
     
     if request.method == 'POST':
@@ -78,21 +80,23 @@ def result():
 
 
 @absence_bp.route('/', methods=['GET'])
+@login_required
 
 def index():
     
     # 本来はDBから講義データを取得する
-    mylectureData = get_absences(session.get('user_id'))
+    mylectureData = get_absences(current_user.get_id())
     
     return render_template('absence.html', lectures=mylectureData)
   
-@absence_bp.route('/absences', methods=['GET'])  
+@absence_bp.route('/absences', methods=['GET']) 
+@login_required 
 def absences():
     
     if request.method == 'GET':
         week = request.args.get('weekday')
         
-        user_id = session.get('user_id')
+        user_id = current_user.get_id()
         
         # DBからuserとweekが一致する講義データを取得する
         mylectureData = db.session.query(

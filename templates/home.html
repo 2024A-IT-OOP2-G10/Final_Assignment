@@ -21,12 +21,6 @@
     <div class="absence">
       <h2>欠席情報</h2>
       <div class="absence_list">
-        <!-- ここのリストはテスト用 -->
-        <!-- <li>講義名：欠席４回</li>
-        <li>講義名：欠席４回</li>
-        <li>講義名：欠席４回</li>
-        <li>講義名：欠席３回</li>
-        <li>講義名：欠席３回</li> -->
         {% for absence in absences %}
         <li>講義名：{{ absence.title }} - 欠席{{ absence.absence_count }}回</li>
         {% else %}

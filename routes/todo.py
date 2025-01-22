@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, session, url_for
+from flask_login import current_user, login_required
 from models.lecture import Lecture
 from models.todo import Todo
 from models.db import db
@@ -8,9 +9,10 @@ from models.userLectureRelation import UserLectureRelation
 todos_bp = Blueprint('todos', __name__, url_prefix='/todos')
 
 @todos_bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     if request.method == 'GET':
-        user_id = session.get('user_id')
+        user_id = current_user.get_id()
         
         # DBからuser_idに一致する講義データを取得
         user_lecture_relations = UserLectureRelation.query.filter_by(user_id=user_id).all()
@@ -24,7 +26,7 @@ def index():
         deadline = datetime.strptime(request.form['date'], '%Y-%m-%d')
         
         
-        user_id = session.get('user_id')
+        user_id = current_user.get_id()
         lecture_id = request.form['lecture']
         description = request.form['todo']
         deadline = deadline
@@ -46,6 +48,7 @@ def index():
         return render_template('todo_result.html', todoData=todoData)
 
 @todos_bp.route('/result', methods=['POST', 'DELETE'])
+@login_required
 def result():
     if request.method == 'POST':
         # データ取得
@@ -83,20 +86,5 @@ def get_todo(user_id):
     todos = db.session.query(
         Todo.id, Lecture.title, Todo.description, Todo.deadline
     ).join(Lecture, Todo.lecture_id == Lecture.id).filter(Todo.user_id == user_id).all()
-    # 仮データ
-#     todos = [
-#                     {
-#                         "todo_id": 1,
-#                         "lecture_title": "情報システム演習",
-#                         "description": "課題1の内容",
-#                         "deadline": "2024-12-10 20:29:57.744098"
-#                     },
-#                     {
-#                         "todo_id": 2,
-#                         "lecture_title": "オブジェクト演習",
-#                         "description": "課題2の内容",
-#                         "deadline": "2024-12-10 20:29:57.744098"
-#                     }
-# ]
             
     return todos

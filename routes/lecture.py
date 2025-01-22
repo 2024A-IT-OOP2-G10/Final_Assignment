@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, render_template, request, redirect, session, url_for
+from flask_login import login_required
 from models.lecture import Lecture
 
 lecture_bp = Blueprint('lectures', __name__, url_prefix='/lectures')
@@ -8,6 +9,7 @@ def get_classes_by_day_and_time(day, time):
     return Lecture.query.filter_by(week=day, timetable=time).all()
 
 @lecture_bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     day = request.args.get('day')
     time = request.args.get('time')
@@ -33,6 +35,7 @@ def index():
     )
 
 @lecture_bp.route('/add', methods=['POST'])
+@login_required
 def add():
     try:
         subject_id = int(request.form.get('lecture'))  # lecture_idを取得
@@ -57,6 +60,7 @@ def add():
 
 
 @lecture_bp.route('/select_class', methods=['POST'])
+@login_required
 def select_class():
     lecture_id = request.form.get('lecture')
     

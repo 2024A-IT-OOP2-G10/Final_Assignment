@@ -1,6 +1,6 @@
 # Blueprintの作成
-from flask import Blueprint, render_template, session, redirect, url_for
-from flask_login import login_required
+from flask import Blueprint, render_template, session, redirect, url_for # type: ignore
+from flask_login import login_required,current_user # type: ignore
 
 from routes.todo import get_todo
 from .absence import get_absences
@@ -12,7 +12,7 @@ home_bp = Blueprint('home', __name__, url_prefix='/home')
 def index():
     
     # セッションからusernameを取得
-    username = session.get('user_id')
+    username = current_user.get_id()
     print(username)
 
     # usernameがセッションに保存されていない場合、ログインページにリダイレクトすることもできます
