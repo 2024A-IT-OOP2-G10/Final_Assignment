@@ -75,7 +75,7 @@ def result():
         
         ans = {"success": "todoDBへの登録に成功しました"}
         
-        return render_template('home.html')
+        return redirect(url_for('home.index'))
         
     elif request.method == 'DELETE':
         user_id = 1
