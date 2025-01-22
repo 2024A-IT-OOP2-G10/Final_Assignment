@@ -21,18 +21,36 @@ all_lectures = [
 @absence_bp.route('/result', methods=['GET', 'POST'])
 def result():
     
-    # POSTで送られてきたデータを変更
-    if request.method == 'POST':
-        name = request.form['name']
-        absence = request.form['absence']
-        # query = MySubject.update(absence=absence).where(MySubject.name == name)
-        # query.execute()
-        return redirect(url_for('home'))
+    user_id = session.get('user_id')
+    lecture_id = request.args.get('name')
+    lecture_id = int(lecture_id)
+    print(lecture_id)
     
-    return render_template('absence.html')
+    selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == lecture_id), None)
+    print(selected_lecture)
+
+    
+    # if not lecture_id:
+    #     return redirect(url_for('absences'))
+    
+    if request.method == 'POST':
+        absence_count = request.form.get('absence')
+        #user_id, lecture_id, absence_count情報からDBを変更する
+        
+        return render_template('absence.html')
+    
+    
+    return render_template('absence_result.html', lecture=selected_lecture['title'])
+
+    # if request.method == 'POST':
+    #     name = request.form['name']
+    #     absence = request.form['absence']
+    #     # query = MySubject.update(absence=absence).where(MySubject.name == name)
+    #     # query.execute()
+    #     return redirect(url_for('absence.result'))
 
 
-@absence_bp.route('', methods=['GET','POST'])
+@absence_bp.route('/', methods=['GET'])
 def absences():
     user_id = session.get('user_id')
     day = ""
@@ -44,30 +62,13 @@ def absences():
     #     ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
     #     .filter(UserLectureRelation.user_id == user_id) \
     #     .all()
+    
     if request.method == 'GET':
-        
-        mylecture = [{"user_id": 1, "title": "情報システム概論", "week": "月曜日", "absence_count": 2},
-        {"user_id": 1, "title": "オブジェクト演習", "week": "火曜日", "absence_count": 1}]
+        mylecture = [{ "id":1,"title": "情報システム概論", "week": "月曜日", },
+                     { "id":2,"title": "オブジェクト演習", "week": "火曜日",}]
         day = request.args.get('weekday')
         subjects = [lecture for lecture in mylecture if lecture['week'] == day]
-        return render_template('absence.html', subjects=subjects, day=day)
-    elif request.method == 'POST':
-            
-
-    # 曜日が選択されていれば、その曜日に関連する講義をフィルタリング
-            
-            #queryパラメータで取得する場合
-            #user_id = request.args.get('user_id')
-            #lecture_title = request.args.get('lecture_title')
-            #absence_count = request.args.get('absence_Count')
-            
-            #この情報をデータベースに登録
-            
-            # new_absence = UserLectureRelation(user_id=user_id, lecture_title=lecture_title, absenceCount=absence_count)
-            # db.session.add(new_absence)
-            # db.session.commit()
-            
-            return render_template('absence.html', absences=absences, day=day, subject=subjects)
+        return render_template('absence.html', subjects=subjects, day=day)       
         
         
         

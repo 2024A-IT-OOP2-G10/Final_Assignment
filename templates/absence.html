@@ -19,7 +19,7 @@
             <option value="金曜日" {% if day == "金曜日" %}selected{% endif %}>金曜日</option>
         </select>
         <br>
-        <button type="submit">参照</button>s
+        <button type="submit">参照</button>
     </form>
 
     {% if day %}
@@ -31,16 +31,15 @@
             <select id="name" name="name" required>
                 <option value="">--選択してください--</option>
                 {% for subject in subjects %}
-                <option value="{{ subject.title }}">{{ subject.title }}</option>
+                <option value="{{ subject.id }}">{{ subject.title }}</option>
                 {% endfor %}
                 {% if not subjects %}
                 <option value="">登録されている講義はありません</option>
                 {% endif %}
             </select>
             <br>
-            <input type="hidden" name="weekday" value="{{ day }}">
-            <button type="submit">決定</button>
-        </form>
+            <button type="submit" formaction="/absence/result">決定</button>
+
     {% endif %}
 </body>
 </html>
