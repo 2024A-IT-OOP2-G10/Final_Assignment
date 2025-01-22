@@ -31,8 +31,6 @@ def get_user():
 
 @user_bp.route('/login', methods=['GET'])
 def login():
-    # ans1 = {"error": "ログインに失敗しました"}
-    # ans2 = {"success": "ログインに成功しました"}
     # return render_template('id_login.html', ans=ans)
     
     if request.method == 'GET':
@@ -47,7 +45,7 @@ def login():
         if user is None:
             print("ユーザーが見つかりません")
             pass
-        
+          
         elif user['password'] == password:  # パスワード一致確認
             # ans = {"success": "ログインに成功しました"}
             #各ユーザごとのhome.indexがあるのか？
@@ -65,7 +63,6 @@ def login():
             
             return redirect(url_for('home.index'))# ホームページへリダイレクト
     
-    # POSTリクエストの場合、ログインフォームを表示
     return render_template('id_login.html')
         
 @user_bp.route('/register', methods=['GET','POST'])
@@ -79,7 +76,6 @@ def register():
         username = request.form.get('user')
         password = request.form.get('password')
         
-        # バリデーション（例: 空チェック）
         if not username or not password:
             return redirect(url_for('user.register'))  # フォームへリダイレクト
         
@@ -94,7 +90,6 @@ def register():
     
     ans = {"success": "UserDBの登録に成功しました"}
     flash("ユーザー登録が成功しました！ログインしてください。")
-    return redirect(url_for('user.login'))  # ログインページへリダイレクト
-    #return render_template('success.html', ans=ans)
+    return redirect(url_for('user.login'))
         
     

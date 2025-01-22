@@ -8,21 +8,22 @@
   <body>
     <h1>欠席数登録画面</h1>
     <h2>選択した講義: {{ lecture }}</h2>
-    <form method="POST" action="/absence/register">
-      <input type="hidden" name="lecture" value="{{ lecture }}" />
-      <label for="absence">欠席日数:</label>
-      <select id="absence" name="absence" required>
-        <option value="0">0日</option>
-        <option value="1">1日</option>
-        <option value="2">2日</option>
-        <option value="3">3日</option>
-        <option value="4">4日</option>
-        <option value="5">5日</option>
-      </select>
-      <br />
-      <button type="submit">登録</button>
+    <form method="POST" action="{{ url_for('absence.result') }}">
+        <input type="hidden" name="lecture" value="{{ lecture }}">
+        <label for="absence">欠席日数:</label>
+        <select id="absence" name="absence" required>
+            <option value="0">0日</option>
+            <option value="1">1日</option>
+            <option value="2">2日</option>
+            <option value="3">3日</option>
+            <option value="4">4日</option>
+            <option value="5">5日</option>
+        </select>
+        <br>
+        <button type="submit">登録</button> 
     </form>
     <br />
     <button onclick="window.location.href='/absence'">戻る</button>
+
   </body>
 </html>
