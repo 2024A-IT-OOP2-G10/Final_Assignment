@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/todo.css" />
     <title>ToDo Manager</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>ToDoの追加</h1>
     <form method="POST" action="{{ url_for('todo.todo_form') }}">
-        <div>
-            <label for="name">講義名:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-            <label for="date">日付:</label>
-            <input type="date" id="date" name="date" required>
-        </div>
-        <div>
-            <label for="todo">メモ:</label>
-            <textarea id="todo" name="todo" rows="4" cols="50" required></textarea>
-        </div>
-        <button type="submit">次へ</button>
+      <div>
+        <label for="name">講義名:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="date">日付:</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+      <div>
+        <label for="todo">メモ:</label>
+        <textarea id="todo" name="todo" rows="4" cols="50" required></textarea>
+      </div>
+      <button type="submit">次へ</button>
     </form>
-</body>
+  </body>
 </html>
