@@ -7,4 +7,4 @@ from .id import id_bp
 from .todo import todos_bp
 
 # Blueprintをリストとしてまとめる
-blueprints = [user_bp, id_bp, home_bp, lecture_bp,lectureResult_bp,todos_bp]
+blueprints = [user_bp, id_bp, home_bp, lecture_bp,lectureResult_bp,todos_bp,absence_bp]

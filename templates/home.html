@@ -8,7 +8,11 @@
   <body>
     <div class="home_button">
       <h1>ホーム画面</h1>
-      <button type="button" onclick="location.href='/absence'">欠席登録</button>
+      <form method="get" action="{{url_for('absence.index')}}">
+        <button type="submit" ">
+          欠席登録
+        </button>
+      </form>
       <br />
       <button type="button" onclick="location.href='/todos'">ToDo</button>
       <br />
