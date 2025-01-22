@@ -37,7 +37,7 @@ def index():
         
         
         # 仮のデータ
-        lecture_title = "情報システム演習";
+        lecture_title = "情報システム演習"
 
         
         
@@ -56,7 +56,9 @@ def index():
         
         ans = {"success": "todoDBへの登録に成功しました"}
         #result.htmlにリダイレクト
-        return render_template('todo_result.html',todoData=todoData)
+        return render_template('todo_result.html',todoData=todoData)\
+            
+    return render_template('todo.html', classes=classes)
         
 
 @todos_bp.route('/result',  methods=[ 'POST', 'DELETE'])
@@ -98,39 +100,39 @@ def get_todo(user_id):
             todos = data.todos
             
             return todos
-@todos_bp.route('', methods=['GET', 'POST', 'DELETE'])
-def todos():
-    if request.method == 'GET':
-        # todos = [
-        #             {
-        #                 "todo_id": 1,
-        #                 "lecture_title": "情報システム演習",
-        #                 "description": "課題1の内容",
-        #                 "deadline": "2024-12-10 20:29:57.744098"
-        #             },
-        #             {
-        #                 "todo_id": 2,
-        #                 "lecture_title": "オブジェクト演習",
-        #                 "description": "課題2の内容",
-        #                 "deadline": "2024-12-10 20:29:57.744098"
-        #             }
-        #         ]
-        return render_template('todo_result.html', todos=data.todos)
-    elif request.method == 'POST':
-        user_id = request.form['user_id']
-        lecture_id = request.form['lecture_id']
-        description = request.form['description']
-        deadline = request.form['deadline']
+# @todos_bp.route('', methods=['GET', 'POST', 'DELETE'])
+# def todos():
+#     if request.method == 'GET':
+#         # todos = [
+#         #             {
+#         #                 "todo_id": 1,
+#         #                 "lecture_title": "情報システム演習",
+#         #                 "description": "課題1の内容",
+#         #                 "deadline": "2024-12-10 20:29:57.744098"
+#         #             },
+#         #             {
+#         #                 "todo_id": 2,
+#         #                 "lecture_title": "オブジェクト演習",
+#         #                 "description": "課題2の内容",
+#         #                 "deadline": "2024-12-10 20:29:57.744098"
+#         #             }
+#         #         ]
+#         return render_template('todo_result.html', todoData=data.todos)
+#     elif request.method == 'POST':
+#         user_id = request.form['user_id']
+#         lecture_id = request.form['lecture_id']
+#         description = request.form['description']
+#         deadline = request.form['deadline']
         
-        #データベースの追加処理
+#         #データベースの追加処理
         
-        # "user_id": 1,
-        # "lecture_id": 1,
-        # "description": "課題1の内容",
-        # "deadline": "2024-12-10 20:29:57.744098"
+#         # "user_id": 1,
+#         # "lecture_id": 1,
+#         # "description": "課題1の内容",
+#         # "deadline": "2024-12-10 20:29:57.744098"
         
-        ans = {"success": "todoDBへの登録に成功しました"}
-        return render_template('todo.html', ans=ans)
+#         ans = {"success": "todoDBへの登録に成功しました"}
+#         return render_template('todo.html', ans=ans)
     
 
 
