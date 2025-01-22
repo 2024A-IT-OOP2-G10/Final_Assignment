@@ -1,17 +1,46 @@
-.home_button{
-    position: absolute;
-    height: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: darkgrey;
-
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
-button{
+.home_button {
+    width: 20%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.home_button h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.home_button button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
     display: block;
-    margin: auto;
-    width: 100px;
-    height: 50px;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.content {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .absence{
@@ -21,13 +50,6 @@ button{
     width: 50%;
 }
 
-.absence_list{
-    width: 500px;
-    height: 200px;
-    overflow: scroll;
-    border: black 2px solid;
-}
-
 .todo{
     position: absolute;
     top: 50%;
@@ -35,9 +57,26 @@ button{
     width: 50%;
 }
 
-.todo_list{
+.absence h2, .todo h2 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.absence_list, .todo_list {
+    background-color: #fff;
+    list-style-type: none;
+    padding: 0;
     width: 500px;
     height: 200px;
     overflow: scroll;
     border: black 2px solid;
+    overflow-y: auto;
+}
+
+.absence_list li, .todo_list li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

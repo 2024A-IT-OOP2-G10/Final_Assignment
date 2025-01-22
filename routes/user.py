@@ -1,18 +1,22 @@
 # Blueprintの作成
 from flask import Blueprint, render_template, request, url_for, flash, redirect, session
+from flask_login import login_user
 from models import User
 from models import db
 
+# 仮データ(User型)
+
 UserData = [
-    {"id":1, "username":"name1", "password":"pass1" },
-    {"id":2, "username":"name2", "password":"pass2"},
+    {"id": 1, "username": "user1", "password": "pass1"},
+    {"id": 2, "username": "user2", "password": "pass2"},
+    {"id": 3, "username": "user3", "password": "pass3"},
 ]
 
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
 
-@user_bp.route('', methods=['GET'])
+@user_bp.route('/', methods=['GET'])
 def get_user():
     if request.method == 'GET':
         user_id = request.args.get('user_id') #クエリパラメータを取得
@@ -37,13 +41,27 @@ def login():
         #user = User.query.filter_by(username=user_id).first()
         user = next((user for user in UserData if user['username'] == user_id), None)
         
+        # ユーザーが見つからない場合の処理
         if user is None:
+            print("ユーザーが見つかりません")
             pass
-            # ユーザーが見つからない場合の処理
-        elif user['password'] == password:
+          
+        elif user['password'] == password:  # パスワード一致確認
             # ans = {"success": "ログインに成功しました"}
-            session['user_id'] = request.args.get('id')
-            return redirect(url_for('home.index'))
+            #各ユーザごとのhome.indexがあるのか？
+            
+            flash('ログインしました')
+            
+            # ログイン成功処理
+            userLoginData = User(user['id'], user['username'], user['password'])
+
+            print("success")
+            login_user(userLoginData)
+            session['user_id'] = user['id']
+            session['user_name'] = user['username']
+            
+            
+            return redirect(url_for('home.index'))# ホームページへリダイレクト
     
     return render_template('id_login.html')
         

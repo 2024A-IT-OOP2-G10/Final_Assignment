@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/absence.css" />
     <title>欠席数登録画面</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>欠席数登録画面</h1>
     <h2>選択した講義: {{ lecture }}</h2>
     <form method="POST" action="{{ url_for('absence.result') }}">
@@ -21,7 +22,8 @@
         <br>
         <button type="submit">登録</button> 
     </form>
-    <br>
+    <br />
     <button onclick="window.location.href='/absence'">戻る</button>
-</body>
+
+  </body>
 </html>
