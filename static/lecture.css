@@ -31,7 +31,7 @@
 /* 参照ボタンの配置とサイズ */
 .reference {
     position: relative;
-    top: -70px;
+    top: -80px;
     left: 420px;
     width: 100px;
     height: 50px;
@@ -47,7 +47,7 @@
 /* 白枠作成 */
 .reference_whitebox{
     position: relative;
-    top: -60px;
+    top: -70px;
     left: 50px;
     width:470px;
     height: 400px;
@@ -84,8 +84,8 @@
 
 /*　追加・最終確認ボタンの配置とサイズ */
 .add {
-    position: relative;
-    top: 400px;
+    position: absolute;
+    top: 500px;
     left: 1100px;
     width: 200px;
     height: 60px;
@@ -93,15 +93,15 @@
 }
 
 .Finalconfirmation {
-    position: relative;
-    top: -300px;
+    position: absolute;
+    top: 600px;
     left: 1100px;
     width: 200px;
     height: 60px;
     margin: 10px;
 }
 
-/* 追加・確認ボタンの文字サイズ調整 */
+/* 追加・最終確認ボタンの文字サイズ調整 */
 .add button {
     width: 100%;
     height: 100%;
@@ -114,7 +114,11 @@
     font-size: 20px;
 }
 
-
-
-
-
+.home_button button {
+    position: absolute;
+    top: 20px; 
+    right: 30px; 
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+}

@@ -46,11 +46,11 @@
             </div>
             <select name="day" id="day">
                 <option value="">選択してください</option>
-                <option value="月曜日" {% if selected_day == '月曜日' %}selected{% endif %}>月曜日</option>
-                <option value="火曜日" {% if selected_day == '火曜日' %}selected{% endif %}>火曜日</option>
-                <option value="水曜日" {% if selected_day == '水曜日' %}selected{% endif %}>水曜日</option>
-                <option value="木曜日" {% if selected_day == '木曜日' %}selected{% endif %}>木曜日</option>
-                <option value="金曜日" {% if selected_day == '金曜日' %}selected{% endif %}>金曜日</option>
+                <option value="月曜日" {% if selected_day=='月曜日' %}selected{% endif %}>月曜日</option>
+                <option value="火曜日" {% if selected_day=='火曜日' %}selected{% endif %}>火曜日</option>
+                <option value="水曜日" {% if selected_day=='水曜日' %}selected{% endif %}>水曜日</option>
+                <option value="木曜日" {% if selected_day=='木曜日' %}selected{% endif %}>木曜日</option>
+                <option value="金曜日" {% if selected_day=='金曜日' %}selected{% endif %}>金曜日</option>
             </select>
         </div>
 
@@ -61,11 +61,11 @@
             </div>
             <select name="time" id="time">
                 <option value="">選択してください</option>
-                <option value="1" {% if selected_time == '1' %}selected{% endif %}>1時限</option>
-                <option value="2" {% if selected_time == '2' %}selected{% endif %}>2時限</option>
-                <option value="3" {% if selected_time == '3' %}selected{% endif %}>3時限</option>
-                <option value="4" {% if selected_time == '4' %}selected{% endif %}>4時限</option>
-                <option value="5" {% if selected_time == '5' %}selected{% endif %}>5時限</option>
+                <option value="1" {% if selected_time=='1' %}selected{% endif %}>1時限</option>
+                <option value="2" {% if selected_time=='2' %}selected{% endif %}>2時限</option>
+                <option value="3" {% if selected_time=='3' %}selected{% endif %}>3時限</option>
+                <option value="4" {% if selected_time=='4' %}selected{% endif %}>4時限</option>
+                <option value="5" {% if selected_time=='5' %}selected{% endif %}>5時限</option>
             </select>
         </div>
 
@@ -89,20 +89,6 @@
         {% endif %}
     </div>
 
-    <!-- 追加済みの講義 -->
-    <div class="added_classes">
-        <h3>追加済み講義:</h3>
-        {% if local_subjects %}
-        <ul>
-            {% for class in local_subjects %}
-            <li>{{ class }}</li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>まだ講義が追加されていません。</p>
-        {% endif %}
-    </div>
-
     <!-- 最終確認ボタン -->
     <form method="post" action="{{ url_for('lectures.select_class') }}">
         <div class="Finalconfirmation">
@@ -110,6 +96,12 @@
         </div>
     </form>
 
+    <!-- ホームボタン -->
+    <form method="post" action="{{ url_for('lecture_result.save')}}">
+        <div class="home_button">
+            <button type="submit">ホーム</button>
+        </div>
+    </form>
 </body>
 
 </html>
