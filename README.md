@@ -11,9 +11,9 @@
 
 - VScode のバージョン:1.95.1 を使用
 - flask、flask-loginをインストールする
-- python のバージョン:3.12.5 を使用
+- python のバージョン:3.12 を使用
 - M1 Mac を使用
-- Chrome 上で動作させる
+- 実行環境：Google Chrome
 
 ## 実行方法
 
