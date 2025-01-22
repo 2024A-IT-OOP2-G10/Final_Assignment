@@ -10,6 +10,11 @@ all_user_lectures = [
     # 他のユーザーと講義のデータ
 ]
 
+mylecture = [
+                { "id":1,"title": "情報システム概論", "week": "月曜日", },
+                { "id":2,"title": "オブジェクト演習", "week": "火曜日",}
+                ]
+
 all_lectures = [
     {"id": 1, "title": "情報システム概論", "week": "月曜日", "timetable": 1},
     {"id": 2, "title": "オブジェクト演習", "week": "火曜日", "timetable": 2},
@@ -23,13 +28,12 @@ def result():
     
     user_id = session.get('user_id')
     lecture_id = request.args.get('name')
-    lecture_id = int(lecture_id)
+    
     print(lecture_id)
     
     selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == lecture_id), None)
-    print(selected_lecture)
 
-    
+    print(selected_lecture)
     # if not lecture_id:
     #     return redirect(url_for('absences'))
     
@@ -41,10 +45,10 @@ def result():
         # db.session.commit()
         
         
-        return render_template('absence.html')
+        return redirect(url_for('home.index'))
     
     
-    return render_template('absence_result.html', lecture=selected_lecture['title'])
+    return render_template('absence_result.html', lecture= selected_lecture)
 
     # if request.method == 'POST':
     #     name = request.form['name']
@@ -55,31 +59,45 @@ def result():
 
 
 @absence_bp.route('/', methods=['GET'])
+
+def index():
+    
+    # 本来はDBから講義データを取得する
+    mylectureData =mylecture
+    
+    return render_template('absence.html', lectures=mylectureData)
+  
+@absence_bp.route('/absences', methods=['GET'])  
 def absences():
     user_id = session.get('user_id')
-    lectures = db.session.query(
-            Lecture.id, Lecture.title, Lecture.week
-        ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
-        .filter(UserLectureRelation.user_id == user_id) \
-        .all()
+    # lectures = db.session.query(
+    #         Lecture.id, Lecture.title, Lecture.week
+    #     ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
+    #     .filter(UserLectureRelation.user_id == user_id) \
+    #     .all()
     
     if request.method == 'GET':
-        mylecture = [{ "id":1,"title": "情報システム概論", "week": "月曜日", },
-                     { "id":2,"title": "オブジェクト演習", "week": "火曜日",}]
         day = request.args.get('weekday')
-        subjects = [lecture for lecture in mylecture if lecture['week'] == day]
+        
+        # 本来はDBから講義データを取得する
+        mylectureData = mylecture
+        
+        
+        subjects = [lecture for lecture in mylectureData if lecture['week'] == day]
+        
+        
         return render_template('absence.html', subjects=subjects, day=day)       
         
         
         
 def get_absences(user_id):
-    absences = db.session.query(
-            UserLectureRelation.user_id,
-            Lecture.title,
-            UserLectureRelation.absence_count
-        ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
-        .filter(UserLectureRelation.user_id == user_id) \
-        .all()
+    # absences = db.session.query(
+    #         UserLectureRelation.user_id,
+    #         Lecture.title,
+    #         UserLectureRelation.absence_count
+    #     ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
+    #     .filter(UserLectureRelation.user_id == user_id) \
+    #     .all()
             
     
     # 仮データ
@@ -92,5 +110,7 @@ def get_absences(user_id):
         "lecture_title": "オブジェクト演習",
         "absence_count": 2
     }]
+    
+    
     
     return absences
