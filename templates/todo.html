@@ -10,10 +10,10 @@
     <title>ToDo Manager</title>
   </head>
   <body>
-    <h1>Add ToDo</h1>
+    <h1>Todoを追加</h1>
     <form method="POST" action="{{ url_for('todos.index') }}">
       <div>
-        <label for="name">Lecture Name:</label>
+        <label for="name">講義名:</label>
         <select name="lecture" id="lecture" required>
           {% for lecture in classes %}
           <option value="{{ lecture.id }}">{{ lecture.title }}</option>
@@ -21,14 +21,14 @@
         </select>
       </div>
       <div>
-        <label for="date">Deadline:</label>
+        <label for="date">締切日:</label>
         <input type="date" id="date" name="date" required />
       </div>
       <div>
-        <label for="todo">Task Description:</label>
+        <label for="todo">具体的な内容:</label>
         <textarea id="todo" name="todo" rows="4" cols="50" required></textarea>
       </div>
-      <button type="submit">Next</button>
+      <button type="submit">次へ</button>
     </form>
   </body>
 </html>
