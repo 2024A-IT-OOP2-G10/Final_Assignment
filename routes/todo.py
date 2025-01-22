@@ -1,45 +1,38 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, session, url_for
+from flask_login import current_user, login_required
+from models.lecture import Lecture
 from models.todo import Todo
-from models import data
+from models.db import db
+from models.userLectureRelation import UserLectureRelation
 
 todos_bp = Blueprint('todos', __name__, url_prefix='/todos')
 
-@todos_bp.route('/', methods=['GET','POST'])
-
+@todos_bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
-    
-    # 本来はDBから講義データを取得する
-    
     if request.method == 'GET':
-    
-        classes = [
-        {
-            "id": 1,
-            "title": "情報システム演習",
-        },
-        {
-            "id": 2,
-            "title": "オブジェクト演習",
-        },
-        ]
-    
-    
-        return render_template('todo.html', classes=classes)
+        user_id = current_user.get_id()
+        
+        # DBからuser_idに一致する講義データを取得
+        user_lecture_relations = UserLectureRelation.query.filter_by(user_id=user_id).all()
+        lecture_ids = [relation.lecture_id for relation in user_lecture_relations]
+        lectures = Lecture.query.filter(Lecture.id.in_(lecture_ids)).all()
+        
+        return render_template('todo.html', classes=lectures)
     
     elif request.method == 'POST':
         
-        user_id = session.get('user_id')
+        deadline = datetime.strptime(request.form['date'], '%Y-%m-%d')
+        
+        
+        user_id = current_user.get_id()
         lecture_id = request.form['lecture']
         description = request.form['todo']
-        deadline = request.form['date']
+        deadline = deadline
         
         # DBからidに一致する講義データを取得
-        
-        
-        # 仮のデータ
-        lecture_title = "情報システム演習"
-
-        
+        lecture_title = Lecture.query.filter_by(id=lecture_id).first().title
         
         todoData = {
             "user_id": user_id,
@@ -51,45 +44,38 @@ def index():
         
         # sessionにtodoDataを保存
         session['todoData'] = todoData
+        
+        return render_template('todo_result.html', todoData=todoData)
 
-        
-        
-        ans = {"success": "todoDBへの登録に成功しました"}
-        #result.htmlにリダイレクト
-        return render_template('todo_result.html',todoData=todoData)\
-            
-    return render_template('todo.html', classes=classes)
-        
-
-@todos_bp.route('/result',  methods=[ 'POST', 'DELETE'])
+@todos_bp.route('/result', methods=['POST', 'DELETE'])
+@login_required
 def result():
-    
-    
     if request.method == 'POST':
-        
         # データ取得
-        user_id = session.get('user_id')
-
-        #sessionからtodoDataを取得
         todoData = session.get('todoData')
-
         
-        # 本来はDBに保存する処理
-        
-        ans = {"success": "todoDBへの登録に成功しました"}
+        # DBに保存する処理
+        newTodo = Todo(
+            user_id=todoData['user_id'],
+            lecture_id=todoData['lecture_id'],
+            description=todoData['description'],
+            deadline=todoData['deadline']
+        )
+        db.session.add(newTodo)
+        db.session.commit()
         
         return redirect(url_for('home.index'))
-        
+    
     elif request.method == 'DELETE':
-        user_id = 1
-        todo_id = 1
-        #データベースの削除処理
-        ans = {"success": "todoDBの削除に成功しました"}
-        return render_template(url_for('todos.result'), ans=ans)
+        todo_id = request.form.get('todo_id')
+        todo = Todo.query.filter_by(id=todo_id).first()
+        if todo:
+            db.session.delete(todo)
+            db.session.commit()
+        
+        return redirect(url_for('todos.index'))
     
     return render_template('todo.html')
-
-
 
 
 def get_todo(user_id):
@@ -97,56 +83,8 @@ def get_todo(user_id):
     # 本来はDBから講義データを取得する
 
     
-            todos = data.todos
+    todos = db.session.query(
+        Todo.id, Lecture.title, Todo.description, Todo.deadline
+    ).join(Lecture, Todo.lecture_id == Lecture.id).filter(Todo.user_id == user_id).all()
             
-            return todos
-# @todos_bp.route('', methods=['GET', 'POST', 'DELETE'])
-# def todos():
-#     if request.method == 'GET':
-#         # todos = [
-#         #             {
-#         #                 "todo_id": 1,
-#         #                 "lecture_title": "情報システム演習",
-#         #                 "description": "課題1の内容",
-#         #                 "deadline": "2024-12-10 20:29:57.744098"
-#         #             },
-#         #             {
-#         #                 "todo_id": 2,
-#         #                 "lecture_title": "オブジェクト演習",
-#         #                 "description": "課題2の内容",
-#         #                 "deadline": "2024-12-10 20:29:57.744098"
-#         #             }
-#         #         ]
-#         return render_template('todo_result.html', todoData=data.todos)
-#     elif request.method == 'POST':
-#         user_id = request.form['user_id']
-#         lecture_id = request.form['lecture_id']
-#         description = request.form['description']
-#         deadline = request.form['deadline']
-        
-#         #データベースの追加処理
-        
-#         # "user_id": 1,
-#         # "lecture_id": 1,
-#         # "description": "課題1の内容",
-#         # "deadline": "2024-12-10 20:29:57.744098"
-        
-#         ans = {"success": "todoDBへの登録に成功しました"}
-#         return render_template('todo.html', ans=ans)
-    
-
-
-# @todos_bp.route('/result', methods=['GET', 'POST'])
-# def result():
-#     if request.method == 'POST':
-#         name = request.form.get('name')
-#         todo = request.form.get('todo')
-#         date = request.form.get('date')
-
-#         new_todo = Todo(name=name, todo=todo, time=date)
-#         new_todo.save()
-
-#         return redirect(url_for('home'))
-
-#     return render_template('todo_result.html', name=request.args.get('name'),
-#                            todo=request.args.get('todo'), date=request.args.get('date'))
+    return todos

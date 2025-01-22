@@ -78,6 +78,10 @@ h1 {
   padding: 20px;
 }
 
+.lecture-list a {
+  text-decoration: none;
+}
+
 .lecture_bt {
   display: block;
   width: 100%;

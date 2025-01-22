@@ -1,5 +1,7 @@
 # Blueprintの作成
-from flask import Blueprint, render_template, request, url_for, flash, redirect, session
+from flask import Blueprint, render_template, request, url_for, flash, redirect, session # type: ignore
+from models.user import User
+from flask_login import login_user
 
 
 id_bp = Blueprint('id', __name__, url_prefix='/id')
@@ -20,7 +22,7 @@ def login():
         
         # user = User.get_or_none(User.user_id == user_id)  # Userモデルの検索例
         
-        user = "user"  # 仮のデータ
+        user = User.query.filter_by(username=user_id).first()
         
         if user is None:
             print("ユーザーが見つかりません")
@@ -30,6 +32,7 @@ def login():
         if user.password == password:  # パスワード一致確認
             # ログイン成功処理
             # session['user_id'] = user_id  # セッションに保存
+            login_user(user, remember=True)
             print('ログイン成功')
             return redirect(url_for('home.index'))  # ホームページへリダイレクト
         else:
