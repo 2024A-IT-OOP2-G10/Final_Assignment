@@ -51,7 +51,7 @@ def delete():
 @lectureResult_bp.route('/save', methods=['POST'])
 @login_required
 def save():
-    # 講義情報を保存する処理（ここではセッション内容をそのまま保持）
+    # 講義情報を保存する処理
     local_subject_ids = session.get('local_subjects', [])
     
     for subject_id in local_subject_ids:
@@ -59,6 +59,15 @@ def save():
         lecture = db.session.query(Lecture).get(subject_id)
         
         if lecture:
+            
+            # 重複登録を防ぐためにUserLectureRelationを取得
+            user_lecture_relation = UserLectureRelation.query.filter_by(
+                user_id=current_user.get_id(),
+                lecture_id=lecture.id
+            ).first()
+            
+            if user_lecture_relation:
+                continue
 
             new_user_lecture = UserLectureRelation(
                 user_id=current_user.get_id(),

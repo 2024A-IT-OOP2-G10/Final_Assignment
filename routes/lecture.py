@@ -1,6 +1,8 @@
 from flask import Blueprint, flash, render_template, request, redirect, session, url_for
 from flask_login import login_required
+from models.db import db
 from models.lecture import Lecture
+from models.userLectureRelation import UserLectureRelation
 
 lecture_bp = Blueprint('lectures', __name__, url_prefix='/lectures')
 
@@ -47,11 +49,28 @@ def add():
     subject = Lecture.query.filter_by(id=subject_id).first()
 
     if subject:
+        
+        myLecture = db.session.query(
+            UserLectureRelation.lecture_id,
+            UserLectureRelation.user_id
+        ).filter(UserLectureRelation.lecture_id == subject_id).first()
+        
+        if myLecture:
+            flash("すでに登録されている講義です", "error")
+            return redirect(url_for('lectures.index'))
+        
         # セッションに講義IDを追加
-        local_subject_ids = session.get('local_subjects', [])
-        if subject.id not in local_subject_ids:
-            local_subject_ids.append(subject.id)
-            session['local_subjects'] = local_subject_ids
+        
+        localsubject_ids = session.get('local_subjects', [])
+        
+        if subject_id not in localsubject_ids:
+            
+            localsubject_ids.append(subject_id)
+            session['local_subjects'] = localsubject_ids
+        
+        
+        
+
     else:
         flash("講義が見つかりません", "error")
         
@@ -74,6 +93,7 @@ def select_class():
             if lecture.id not in local_subject_ids:
                 local_subject_ids.append(lecture.id)
                 session['local_subjects'] = local_subject_ids
+                
         else:
             flash("講義が見つかりません", "error")
     
