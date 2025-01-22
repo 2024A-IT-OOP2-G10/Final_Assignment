@@ -5,3 +5,11 @@ class Lecture(db.Model):
     title = db.Column(db.String(80), nullable=False)
     week = db.Column(db.String(80), nullable=False)
     timetable = db.Column(db.Integer, nullable=False)
+    
+    def to_dict(self):
+        return {
+        "id": self.id,
+        "title": self.title,
+        "week": self.week,
+        "timetable": self.timetable,
+    }

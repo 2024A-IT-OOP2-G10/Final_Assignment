@@ -31,7 +31,7 @@
             <ul class="lecture-list">
                 {% for subject in subjects %}
                     <li>
-                        <form method="get" action="{{ url_for('absence.result', lecture=subject.id) }}">
+                        <form method="get" action="{{ url_for('absence.result', lecture=subject.lecture_id) }}">
                             <button type="submit" class="lecture_bt">
                                 {{ subject.title }}
                             </button>

@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import flask_login
 from flask_login import UserMixin
-from models.db import db
+from models.db import db, init_db
 from models.user import User
 from routes import blueprints
 
@@ -16,6 +16,9 @@ login_manager.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sample_flask.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+    
+with app.app_context():
+    init_db()  # 初期化をここで呼び出す
 
 # 各Blueprintをアプリケーションに登録
 for blueprint in blueprints:
@@ -56,4 +59,4 @@ def home():
     return render_template('home.html')
 
 if __name__ == '__main__':
-    app.run(port=8888, debug=True)
+    app.run(debug=True)
