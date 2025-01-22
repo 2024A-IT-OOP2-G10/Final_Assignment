@@ -33,10 +33,13 @@ def result():
     
     if request.method == 'POST':
         absence_count = request.form.get('absence')
+        lecture = request.form.get('lecture')
+        print(absence_count)
+        print(lecture)
 
         # user_lecture_relation を取得
         user_lecture_relation = UserLectureRelation.query.filter_by(
-        user_id=user_id, lecture_id=lecture_id).first()
+        user_id=user_id, lecture_id= int(lecture)).first()
 
         # user_lecture_relation が None でないことを確認
         if user_lecture_relation:
@@ -51,15 +54,20 @@ def result():
             db.session.add(user_lecture_relation)
             db.session.commit()
             
-    lecture_id = request.args.get('lecture')
-    print(lecture_id)
-    
-    selected_lecture = Lecture.query.filter_by(id=lecture_id).first()
-    print(selected_lecture)
-    
-    
-    
-    return render_template('absence_result.html', lecture= selected_lecture)
+        return redirect(url_for('home.index'))
+            
+    elif request.method == 'GET':
+        
+        lecture_id = request.args.get('lecture')
+        print(lecture_id)
+        
+        selected_lecture = db.session.query(
+            Lecture.id, Lecture.title, UserLectureRelation.absence_count
+        ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
+        .filter(UserLectureRelation.user_id == user_id, Lecture.id == lecture_id).first()
+        print(selected_lecture)
+        return render_template('absence_result.html', lecture=selected_lecture)
+
 
     # if request.method == 'POST':
     #     name = request.form['name']
@@ -91,6 +99,8 @@ def absences():
             Lecture.id, Lecture.title, Lecture.week
         ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
         .filter(UserLectureRelation.user_id == user_id, Lecture.week == week).all()
+        
+        
         
         return render_template('absence.html', subjects= mylectureData, day=week)       
         

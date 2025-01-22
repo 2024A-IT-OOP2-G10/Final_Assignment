@@ -19,7 +19,7 @@ def index():
     # 同じ曜日と時限の講義を検出
     for lecture in sorted_subjects:
         lecture['highlight'] = any(
-            other['id'] != lecture['id'] and other['day'] == lecture['day'] and other['time'] == lecture['time']
+            other['id'] != lecture['id'] and other['week'] == lecture['week'] and other['timetable'] == lecture['timetable']
             for other in sorted_subjects
         )
 

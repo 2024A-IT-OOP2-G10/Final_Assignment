@@ -31,11 +31,11 @@
             <ul class="lecture-list">
                 {% for subject in subjects %}
                     <li>
-                        <form method="get" action="{{ url_for('absence.result', lecture=subject.id) }}">
+                        <a  method="get" href="{{url_for('absence.result', lecture=subject.id)}}">
                             <button type="submit" class="lecture_bt">
                                 {{ subject.title }}
                             </button>
-                        </form>
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
