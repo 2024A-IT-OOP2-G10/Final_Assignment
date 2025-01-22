@@ -10,9 +10,7 @@
       <h1>ホーム画面</h1>
       <button type="button" onclick="location.href='/absence'">欠席登録</button>
       <br />
-      <button type="button" onclick="location.href='リンク先のURL'">
-        ToDo
-      </button>
+      <button type="button" onclick="location.href='/todos'">ToDo</button>
       <br />
       <button type="button" onclick="location.href='/lectures'">
         講義追加
@@ -41,11 +39,15 @@
     <div class="todo">
       <h2>ToDoリスト</h2>
       <div class="todo_list">
-        <!-- ここのリストはテスト用 -->
-        <li>確率統計の課題</li>
-        <li>オブジェクト指向の課題</li>
-        <li>バイト</li>
-        <li>英語</li>
+        {% for todo in todoList %}
+        <li>
+          <p>講義名：{{ todo.lecture_title }}</p>
+          <p>期限：{{ todo.deadline }}</p>
+          <p>内容：{{ todo.description }}</p>
+        </li>
+        {% else %}
+        <li>現在、ToDoリストはありません。</li>
+        {% endfor %}
       </div>
     </div>
   </body>
