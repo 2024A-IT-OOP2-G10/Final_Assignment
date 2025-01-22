@@ -10,12 +10,12 @@
     <title>ToDo Result</title>
   </head>
   <body>
-    <h1>Confirm Your Task</h1>
+    <h1>入力内容の確認</h1>
     <form method="POST" action="{{ url_for('todos.result') }}">
-      <p>Lecture Name: {{ todoData.lecture_title }}</p>
-      <p>Deadline: {{ todoData.deadline }}</p>
-      <p>Task Description: {{ todoData.description }}</p>
-      <button type="submit">Save</button>
+      <p>講義名: {{ todoData.lecture_title }}</p>
+      <p>締切日: {{ todoData.deadline }}</p>
+      <p>具体的な内容: {{ todoData.description }}</p>
+      <button type="submit">保存</button>
     </form>
     <a href="{{ url_for('todos.index') }}">編集</a>
   </body>
