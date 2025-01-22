@@ -30,9 +30,9 @@ def delete():
             updated_subjects = [lec for lec in local_subjects if lec["id"] != lecture_id]
             session['local_subjects'] = updated_subjects  # セッションを更新
     
-    return redirect(url_for('lecture_result.index'))
+            return redirect(url_for('lecture_result.index'))
   
-     else:
+    else:
     
         # セッションから保存された講義情報を取得
         local_subjects = session.get('local_subjects', [])
