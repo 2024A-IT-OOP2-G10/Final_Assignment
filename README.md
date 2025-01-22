@@ -10,6 +10,7 @@
 ## 実行の前提条件
 
 - VScode のバージョン:1.95.1 を使用
+- flask、flask-loginをインストールする
 - python のバージョン:3.12.5 を使用
 - M1 Mac を使用
 - Chrome 上で動作させる
