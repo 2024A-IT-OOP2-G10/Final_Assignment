@@ -37,7 +37,7 @@ def index():
         
         
         # 仮のデータ
-        lecture_title = "情報システム演習";
+        lecture_title = "情報システム演習"
 
         
         
@@ -91,6 +91,10 @@ def result():
 
 
 def get_todo(user_id):
+
+    todo = data.todos
+
+    return todo
 
     # 本来はDBから講義データを取得する
 

@@ -19,9 +19,9 @@
       <ul>
         {% for lecture in local_subjects %}
         <li class="{% if lecture.highlight %}highlight{% endif %}">
-          <span class="lecture">講義名:</span> {{ lecture.class }} |
-          <span class="lecture">曜日:</span> {{ lecture.day }} |
-          <span class="lecture">時限:</span> {{ lecture.time }}
+          <span class="lecture">講義名:</span> {{ lecture.title }} |
+          <span class="lecture">曜日:</span> {{ lecture.week }} |
+          <span class="lecture">時限:</span> {{ lecture.timetable }}
         </li>
         {% endfor %}
       </ul>
@@ -33,7 +33,7 @@
     <div class="delete_select">
       <select name="lecture" id="lectureSelect">
         {% for lecture in local_subjects %}
-        <option value="{{ lecture.id }}">{{ lecture.class }}</option>
+        <option value="{{ lecture.id }}">{{ lecture.title }}</option>
         {% endfor %}
       </select>
     </div>
