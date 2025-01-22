@@ -94,6 +94,10 @@ def get_todo(user_id):
 
     # 本来はDBから講義データを取得する
 
+    
+            todos = data.todos
+            
+            return todos
 @todos_bp.route('', methods=['GET', 'POST', 'DELETE'])
 def todos():
     if request.method == 'GET':

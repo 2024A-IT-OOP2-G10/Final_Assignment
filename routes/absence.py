@@ -28,7 +28,7 @@ all_lectures = [
 def result():
     
     user_id = session.get('user_id')
-    lecture_id = request.args.get('name')
+    lecture_id = request.args.get('lecture')
     print(lecture_id)
     
     selected_lecture = next((lecture for lecture in data.all_lectures_db if lecture['id'] == lecture_id), None)
@@ -56,7 +56,7 @@ def result():
     print(lecture_id)
     
 
-    selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == int(lecture_id)))
+    selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == lecture_id), None)
 
     print(selected_lecture)
     # if not lecture_id:

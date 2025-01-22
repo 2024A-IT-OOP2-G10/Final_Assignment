@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='lecture_result.css') }}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>最終確認</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='lecture_result.css') }}" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>最終確認</title>
-</head>
-
-<body>
-  <div class="font_size">
-    <h1>確認画面</h1>
-  </div>
-
-  <!-- 講義リスト表示 -->
-  <div class="place">
-    <div class="lecture_list" id="lectureList">
-      <ul>
-        {% for lecture in local_subjects %}
-        <li class="{% if lecture.highlight %}highlight{% endif %}">
-          <span class="lecture">講義名:</span> {{ lecture.class }} |
-          <span class="lecture">曜日:</span> {{ lecture.day }} |
-          <span class="lecture">時限:</span> {{ lecture.time }}
-        </li>
-        {% endfor %}
-      </ul>
+  <body>
+    <div class="font_size">
+      <h1>確認画面</h1>
     </div>
-  </div>
 
-  <!-- 削除ボタン -->
-  <form method="POST" action="{{ url_for('lecture_result.delete') }}">
-    <div class="delete_select">
-      <select name="lecture" id="lectureSelect">
-        {% for lecture in local_subjects %}
-        <option value="{{ lecture.id }}">{{ lecture.class }}</option>
-        {% endfor %}
-      </select>
+    <!-- 講義リスト表示 -->
+    <div class="place">
+      <div class="lecture_list" id="lectureList">
+        <ul>
+          {% for lecture in local_subjects %}
+          <li class="{% if lecture.highlight %}highlight{% endif %}">
+            <span class="lecture">講義名:</span> {{ lecture.title }} |
+            <span class="lecture">曜日:</span> {{ lecture.week }} |
+            <span class="lecture">時限:</span> {{ lecture.timetable }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    <div class="delete_button">
-      <button id="deleteButton" type="submit">削除</button>
-    </div>
-  </form>
 
-  <!-- 保存ボタン -->
-  <form method="POST" action="{{ url_for('lecture_result.save') }}">
-    <div class="add_button">
-      <button type="submit">保存</button>
-    </div>
-  </form>
+    <!-- 削除ボタン -->
+    <form method="POST" action="{{ url_for('lecture_result.delete') }}">
+      <div class="delete_select">
+        <select name="lecture" id="lectureSelect">
+          {% for lecture in local_subjects %}
+          <option value="{{ lecture.id }}">{{ lecture.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="delete_button">
+        <button id="deleteButton" type="submit">削除</button>
+      </div>
+    </form>
 
-  <!-- 戻るボタン -->
-  <form method="post" action="{{ url_for('lectures.index')}}">
-    <div class="back_button">
-      <button type="submit">戻る</button>
-    </div>
-  </form>
+    <!-- 保存ボタン -->
+    <form method="POST" action="{{ url_for('lecture_result.save') }}">
+      <div class="add_button">
+        <button type="submit">保存</button>
+      </div>
+    </form>
+
+    <!-- 戻るボタン -->
+    <form method="post" action="{{ url_for('lectures.index')}}">
+      <div class="back_button">
+        <button type="submit">戻る</button>
+      </div>
+    </form>
 
     <!-- 保存ボタン -->
     <!-- <form method="POST" action="{{ url_for('lecture_result.index') }}">
@@ -62,9 +64,10 @@
         <button type="submit">保存</button>
       </div>
     </form> -->
-  <div class="attention">
-    <p>※赤色表示されている場合は講義の曜日と時限が被ってます。どちらかを削除してください</p>
-  </div>
-</body>
-
+    <div class="attention">
+      <p>
+        ※赤色表示されている場合は講義の曜日と時限が被ってます。どちらかを削除してください
+      </p>
+    </div>
+  </body>
 </html>

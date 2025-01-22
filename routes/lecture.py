@@ -1,30 +1,14 @@
-from models import data
 from flask import Blueprint, flash, render_template, request, redirect, session, url_for
+
+from models import data
 
 lecture_bp = Blueprint('lectures', __name__, url_prefix='/lectures')
 
 # 仮データベースとして活用（この形にする）
-all_lectures_db = [
-    {'id': 1, "class": "国語", "day": "月曜日", "time": 1},
-    {"id": 2, "class": "数学", "day": "火曜日", "time": 2},
-    {"id": 3, "class": "社会", "day": "火曜日", "time": 2},
-    {"id": 4, "class": "理科", "day": "木曜日", "time": 1},
-    {"id": 5, "class": "英語", "day": "金曜日", "time": 4}
-]
-
-@lecture_bp.route('/', methods=['GET', 'POST'])
-
-# 曜日を返す
-def get_days():
-    return list(set([lecture["day"] for lecture in data.all_lectures_db]))
-
-# 時限を返す
-def get_times():
-    return list(set([lecture["time"] for lecture in data.all_lectures_db]))
 
 # 特定の曜日・時限に対応する講義を返す
 def get_classes_by_day_and_time(day, time):
-    return [lecture for lecture in data.all_lectures_db if lecture["day"] == day and lecture["time"] == time]
+    return [lecture for lecture in data.all_lectures_db if lecture["week"] == day and lecture["timetable"] == time]
 
 @lecture_bp.route('/', methods=['GET', 'POST'])
 def index():
@@ -66,7 +50,7 @@ def add():
         return redirect(url_for('lectures.index'))
     
     # 仮データidに対応する講義を取得
-    subject = next((lecture for lecture in all_lectures_db if lecture["id"] == subject_id), None)
+    subject = next((lecture for lecture in data.all_lectures_db if lecture["id"] == subject_id), None)
     
     if subject:
         # セッションに講義を追加
@@ -87,7 +71,7 @@ def select_class():
     
     if lecture_id:
         # ID を元に該当する講義を取得
-        lecture = next((lec for lec in all_lectures_db if str(lec["id"]) == lecture_id), None)
+        lecture = next((lec for lec in data.all_lectures_db if str(lec["id"]) == lecture_id), None)
         if lecture:
             # セッションに選ばれた講義を追加
             local_subjects = session.get('local_subjects', [])
