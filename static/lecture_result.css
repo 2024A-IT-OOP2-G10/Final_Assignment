@@ -1,24 +1,107 @@
-.place {
+body {
     margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) 
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* 全体を中央に配置 */
+.place {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .lecture_list {
-    width: 500px;
-    height: 200px;
-    overflow: scroll;
-    border: black 2px solid;
+    width: 600px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #333;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.8;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
-input {
-    position: absolute; /*自由に配置する指定*/
-    bottom: 0; /*下寄せの指定*/
-    margin-left: 90%;
-    margin-bottom: 10%;
-    font-size: 20px;
-    padding: 20px;
+/* タイトルの中央揃え */
+.font_size {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* 削除用セレクトボックス */
+.delete_select {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.delete_select select {
+    width: 270px;
+    height: 50px;
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* ボタン配置 */
+.add_button, .delete_button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.add_button button, .delete_button button {
+    width: 140px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back_button button {
+    position: absolute;
+    top: 670px;
+    left: 110px;
+    width: 140px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+li {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.lecture {
+    font-weight: bold;
+}
+
+/* 同じ曜日と時限を持つ講義を赤色で表示 */
+.highlight {
+    color: red;
+}
+
+.attention {
+    position: absolute;
+    left: 56%;
+    top: 750px;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #555;
+    text-align: center;
 }

@@ -3,7 +3,17 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
     background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* タイトルのスタイル */
+h1 {
+    font-size: 28px;
+    color: #333;
+=======
+    /* background-color: #f4f4f4; */
 }
 
 /* ホーム画面ボタンセクション */
@@ -26,10 +36,6 @@ body {
     border: 2px solid black;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.home_button button:hover {
-    background-color: lightgray;
 }
 
 /* 欠席登録セクション */
@@ -63,34 +69,104 @@ body {
 
 /* フォーム全体のスタイル */
 form {
+>>>>>>> main
     margin-top: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* 曜日選択フォーム */
+form {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 form label {
     display: block;
     font-size: 16px;
-    margin-bottom: 5px;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 form select {
     width: 100%;
-    max-width: 300px;
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
     margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 form button {
-    width: 120px;
+<<<<<<< HEAD
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+=======
+    width: 100px;
     height: 40px;
     font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    /* background-color: #4CAF50; */
+    /* color: white; */
+    /* border: none; */
+>>>>>>> main
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: background-color 0.3s ease;
+}
+
+button {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-form button:hover {
-    background-color: #45a049;
+/* 講義リストのスタイル */
+.lecture-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.lecture-list li {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.lecture-list a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.lecture-list a:hover {
+    color: #388E3C;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }

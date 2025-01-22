@@ -8,13 +8,15 @@
   <body>
     <div class="home_button">
       <h1>ホーム画面</h1>
-      <button type="button" onclick="location.href='/absence'">
-        欠席登録
-      </button>
+      <form method="get" action="{{url_for('absence.index')}}">
+        <button type="submit" ">
+          欠席登録
+        </button>
+      </form>
       <br />
-      <button type="button" onclick="location.href='リンク先のURL'">ToDo</button>
+      <button type="button" onclick="location.href='/todos'">ToDo</button>
       <br />
-      <button type="button" onclick="location.href=''">
+      <button type="button" onclick="location.href='/lectures'">
         講義追加
       </button>
     </div>
@@ -28,9 +30,12 @@
         <li>講義名：欠席３回</li>
         <li>講義名：欠席３回</li> -->
         {% for absence in absences %}
-            <li>講義名：{{ absence.lecture_title }} - 欠席{{ absence.absence_count }}回</li>
+        <li>
+          講義名：{{ absence.lecture_title }} - 欠席{{ absence.absence_count
+          }}回
+        </li>
         {% else %}
-            <li>現在、欠席情報はありません。</li>
+        <li>現在、欠席情報はありません。</li>
         {% endfor %}
       </div>
     </div>
@@ -38,11 +43,15 @@
     <div class="todo">
       <h2>ToDoリスト</h2>
       <div class="todo_list">
-        <!-- ここのリストはテスト用 -->
-        <li>確率統計の課題</li>
-        <li>オブジェクト指向の課題</li>
-        <li>バイト</li>
-        <li>英語</li>
+        {% for todo in todoList %}
+        <li>
+          <p>講義名：{{ todo.lecture_title }}</p>
+          <p>期限：{{ todo.deadline }}</p>
+          <p>内容：{{ todo.description }}</p>
+        </li>
+        {% else %}
+        <li>現在、ToDoリストはありません。</li>
+        {% endfor %}
       </div>
     </div>
   </body>

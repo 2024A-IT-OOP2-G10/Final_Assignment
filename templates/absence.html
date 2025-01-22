@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/absence.css" />
     <title>欠席登録</title>
 </head>
 <body>
@@ -24,9 +25,25 @@
 
     {% if day %}
         <h2>{{ day }}に登録されている講義</h2>
+<<<<<<< HEAD
+
+        <!-- 講義リスト -->
+        <ul class="lecture-list">
+            {% for subject in subjects %}
+                <li>
+                    <a href="{{ url_for('absence.result', lecture=subject.title) }}">
+                        {{ subject.title }}
+                    </a>
+                </li>
+            {% endfor %}
+            {% if not subjects %}
+                <li>登録されている講義はありません。</li>
+            {% endif %}
+        </ul>
+=======
 
         <!-- 講義選択フォーム -->
-        <form method="get" action="{{ url_for('absence.absences') }}">
+        <form method="get" action="{{ url_for('absence.result') }}">
             <label for="name">講義を選択:</label>
             <select id="name" name="name" required>
                 <option value="">--選択してください--</option>
@@ -38,8 +55,13 @@
                 {% endif %}
             </select>
             <br>
-            <button type="submit" formaction="/absence/result">決定</button>
+            <button type="submit">決定</button>
+        </form>
 
+
+
+
+>>>>>>> main
     {% endif %}
 </body>
 </html>
