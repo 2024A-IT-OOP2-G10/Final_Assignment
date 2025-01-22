@@ -36,6 +36,10 @@ def result():
     if request.method == 'POST':
         absence_count = request.form.get('absence')
         #user_id, lecture_id, absence_count情報からDBを変更する
+        # userlecturerelation = UserLectureRelation.query.filter_by(user_id=user_id, lecture_id=lecture_id).first()
+        # userlecturerelation.absence_count = absence_count
+        # db.session.commit()
+        
         
         return render_template('absence.html')
     
@@ -53,15 +57,11 @@ def result():
 @absence_bp.route('/', methods=['GET'])
 def absences():
     user_id = session.get('user_id')
-    day = ""
-    # absences = db.session.query(
-    #         UserLectureRelation.user_id,
-    #         Lecture.title,
-    #         Lecture.week,
-    #         UserLectureRelation.absence_count
-    #     ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
-    #     .filter(UserLectureRelation.user_id == user_id) \
-    #     .all()
+    lectures = db.session.query(
+            Lecture.id, Lecture.title, Lecture.week
+        ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
+        .filter(UserLectureRelation.user_id == user_id) \
+        .all()
     
     if request.method == 'GET':
         mylecture = [{ "id":1,"title": "情報システム概論", "week": "月曜日", },
@@ -73,22 +73,13 @@ def absences():
         
         
 def get_absences(user_id):
-    # absences = MySubject.select()
-    # UserLectures = UserLectureRelation.query.filter_by(id=user_id).all()
-    # UserLectures = [ul for ul in all_user_lectures if ul['user_id'] == user_id]
-    # absences = []
-    # for UserLecture in UserLectures:
-    #     #lecture_titleを取得
-    #     # lecture = Lecture.query.filter_by(id=UserLecture.lecture_id).first()
-    #     lecture = next((l for l in all_lectures if l['id'] == ['lecture_id']), None)
-    #     if not lecture:
-    #         continue
-            
-    #     absences.append({
-    #         "absence_id" : UserLecture.id,
-    #         "lecture_title" : lecture.title,
-    #         "absence_count" : UserLecture.absence_count
-    #     })
+    absences = db.session.query(
+            UserLectureRelation.user_id,
+            Lecture.title,
+            UserLectureRelation.absence_count
+        ).join(Lecture, UserLectureRelation.lecture_id == Lecture.id) \
+        .filter(UserLectureRelation.user_id == user_id) \
+        .all()
             
     
     # 仮データ
