@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    /* background-color: #f4f4f4; */
 }
 
 /* ホーム画面ボタンセクション */
@@ -26,10 +26,6 @@ body {
     border: 2px solid black;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.home_button button:hover {
-    background-color: lightgray;
 }
 
 /* 欠席登録セクション */
@@ -81,16 +77,20 @@ form select {
 }
 
 form button {
-    width: 120px;
+    width: 100px;
     height: 40px;
     font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    /* background-color: #4CAF50; */
+    /* color: white; */
+    /* border: none; */
     border-radius: 5px;
     cursor: pointer;
 }
 
-form button:hover {
-    background-color: #45a049;
+button {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
