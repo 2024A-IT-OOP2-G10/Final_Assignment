@@ -17,11 +17,10 @@ h1 {
 h2 {
     font-size: 24px;
     color: #333;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-/* 曜日選択フォーム */
+/* フォームのスタイル */
 form {
     margin: 20px auto;
     width: 80%;
@@ -34,6 +33,7 @@ form {
     text-align: left;
 }
 
+/* ラベルのスタイル */
 form label {
     display: block;
     font-size: 16px;
@@ -41,6 +41,7 @@ form label {
     margin-bottom: 10px;
 }
 
+/* セレクトボックスのスタイル */
 form select {
     width: 100%;
     padding: 10px;
@@ -50,8 +51,9 @@ form select {
     border-radius: 5px;
 }
 
-form button {
-    display: block;
+/* ボタンのスタイル */
+form button, button {
+    display: inline-block;
     width: 100%;
     max-width: 150px;
     padding: 10px;
@@ -61,40 +63,21 @@ form button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 0 auto;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 
-form button:hover {
+form button:hover, button:hover {
     background-color: #45a049;
 }
 
-/* 講義リストのスタイル */
-.lecture-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px auto;
-    max-width: 500px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+/* 戻るボタンのスタイル */
+button {
+    background-color: #555;
+    color: white;
+    text-align: center;
 }
 
-.lecture-list li {
-    margin: 10px 0;
-    font-size: 16px;
-}
-
-.lecture-list a {
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.lecture-list a:hover {
-    color: #388E3C;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+button:hover {
+    background-color: #333;
 }
