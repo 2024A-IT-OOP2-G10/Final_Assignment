@@ -26,17 +26,6 @@ all_lectures = [
 @absence_bp.route('/result', methods=['GET', 'POST'])
 def result():
     
-    user_id = session.get('user_id')
-    lecture_id = request.args.get('name')
-    
-    print(lecture_id)
-    
-    selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == lecture_id), None)
-
-    print(selected_lecture)
-    # if not lecture_id:
-    #     return redirect(url_for('absences'))
-    
     if request.method == 'POST':
         absence_count = request.form.get('absence')
         #user_id, lecture_id, absence_count情報からDBを変更する
@@ -46,6 +35,19 @@ def result():
         
         
         return redirect(url_for('home.index'))
+    
+    
+    user_id = session.get('user_id')
+    lecture_id = request.args.get('name')
+    
+    print(lecture_id)
+    
+    selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == int(lecture_id)))
+
+    print(selected_lecture)
+    # if not lecture_id:
+    #     return redirect(url_for('absences'))
+    
     
     
     return render_template('absence_result.html', lecture= selected_lecture)

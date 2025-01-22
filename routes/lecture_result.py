@@ -49,4 +49,4 @@ def save():
     # 講義情報を保存する処理（ここではセッション内容をそのまま保持）
     local_subjects = session.get('local_subjects', [])
     
-    return redirect(url_for('home'))
+    return redirect(url_for('home.index'))
