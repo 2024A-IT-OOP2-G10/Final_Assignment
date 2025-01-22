@@ -6,11 +6,12 @@
     <title>ホーム</title>
   </head>
   <body>
-    <form action="{{ url_for('id.add') }}">
+    <header>講義情報管理アプリ 「クラストラック」</header>
+    <form action="{{ url_for('user.register') }}">
       <input type="submit" value="ID登録" />
     </form>
     <br />
-    <form action="{{ url_for('id.login') }}">
+    <form action="{{ url_for('user.login') }}">
       <input type="submit" value="ログイン" />
     </form>
   </body>

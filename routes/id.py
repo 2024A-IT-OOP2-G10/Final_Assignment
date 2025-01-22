@@ -8,24 +8,9 @@ id_bp = Blueprint('id', __name__, url_prefix='/id')
 def index():
     return render_template('id.html')
 
-@id_bp.route('/new', methods=['GET', 'POST'])
-def add():
-    if request.method == 'POST':
-        user_id = request.form['user']
-        password = request.form['pass']
-        # User.create(user_id=user_id, password=password)
-
-        # Flashメッセージ
-        # flash('登録が完了しました！', 'success')
-
-        # 次のページへリダイレクト
-        return redirect(url_for('id.success'))
-
-    return render_template('id_new.html')  # 登録ページを表示
-
-@id_bp.route('/success')
-def success():
-    return render_template('success.html')  # 登録成功ページ
+# @id_bp.route('/success')
+# def success():
+#     return render_template('success.html')  # 登録成功ページ
 
 @id_bp.route('/login', methods=['GET', 'POST'])
 def login():
