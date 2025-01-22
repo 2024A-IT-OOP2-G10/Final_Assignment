@@ -1,3 +1,4 @@
+from models import data
 from flask import Blueprint, flash, render_template, request, redirect, session, url_for
 
 lecture_bp = Blueprint('lectures', __name__, url_prefix='/lectures')
@@ -11,9 +12,19 @@ all_lectures_db = [
     {"id": 5, "class": "英語", "day": "金曜日", "time": 4}
 ]
 
+@lecture_bp.route('/', methods=['GET', 'POST'])
+
+# 曜日を返す
+def get_days():
+    return list(set([lecture["day"] for lecture in data.all_lectures_db]))
+
+# 時限を返す
+def get_times():
+    return list(set([lecture["time"] for lecture in data.all_lectures_db]))
+
 # 特定の曜日・時限に対応する講義を返す
 def get_classes_by_day_and_time(day, time):
-    return [lecture for lecture in all_lectures_db if lecture["day"] == day and lecture["time"] == time]
+    return [lecture for lecture in data.all_lectures_db if lecture["day"] == day and lecture["time"] == time]
 
 @lecture_bp.route('/', methods=['GET', 'POST'])
 def index():

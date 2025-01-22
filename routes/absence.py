@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from models import db, UserLectureRelation, Lecture, User
+from models import data
 
 # Blueprintの作成
 absence_bp = Blueprint('absence', __name__, url_prefix='/absence')
@@ -26,8 +27,20 @@ all_lectures = [
 @absence_bp.route('/result', methods=['GET', 'POST'])
 def result():
     
+    user_id = session.get('user_id')
+    lecture_id = request.args.get('name')
+    print(lecture_id)
+    
+    selected_lecture = next((lecture for lecture in data.all_lectures_db if lecture['id'] == lecture_id), None)
+    print(selected_lecture)
+
+    
+    # if not lecture_id:
+    #     return redirect(url_for('absences'))
+    
     if request.method == 'POST':
         absence_count = request.form.get('absence')
+        
         #user_id, lecture_id, absence_count情報からDBを変更する
         # userlecturerelation = UserLectureRelation.query.filter_by(user_id=user_id, lecture_id=lecture_id).first()
         # userlecturerelation.absence_count = absence_count
@@ -42,6 +55,7 @@ def result():
     
     print(lecture_id)
     
+
     selected_lecture = next((lecture for lecture in all_lectures if lecture['id'] == int(lecture_id)))
 
     print(selected_lecture)
@@ -71,8 +85,12 @@ def index():
   
 @absence_bp.route('/absences', methods=['GET'])  
 def absences():
-    user_id = session.get('user_id')
-    # lectures = db.session.query(
+
+    
+    #SQLAlchemy用
+    # user_id = session.get('user_id')
+    # subjects = db.session.query(
+
     #         Lecture.id, Lecture.title, Lecture.week
     #     ).join(UserLectureRelation, Lecture.id == UserLectureRelation.lecture_id) \
     #     .filter(UserLectureRelation.user_id == user_id) \
@@ -93,6 +111,9 @@ def absences():
         
         
 def get_absences(user_id):
+    
+    #SQLAlchemy用
+
     # absences = db.session.query(
     #         UserLectureRelation.user_id,
     #         Lecture.title,
